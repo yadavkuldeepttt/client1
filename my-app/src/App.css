@@ -1,0 +1,59 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+}
+body{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    overflow: hidden;
+}
+
+.text-style{
+  color:'#141414';
+  font-size:14px;
+  font-weight:600;
+}
+
+/* Global.css or styled-components global styles */
+:root {
+  --background-color: #ffffff;
+  --text-color: #333333;
+  --sidebar-bg-color: #f0f0f0;
+  --icon-color: #333333;
+  --message-sidebar:#ebebeb;
+  --chat-item-name:black;
+  --gradient-home1:#fefefe;
+  --gradient-home2:#fefefe;
+  --gradient-home3:#9bc4e24f;
+  --message-bar-input:#c2c2c2;
+  --group-section-active:#fafafa;
+  --icon-div:#d9d9d9;
+  --border-color:#cccccc;
+  --nav-item-color:#141414;
+}
+
+body.dark-mode {
+  --background-color: #1c1c1c;
+  --text-color: #f0f0f0;
+  --sidebar-bg-color: black;
+  --icon-color: #f0f0f0;
+  --message-sidebar:#161515;
+  --chat-item-name:#fff;
+  --gradient-home1:#060706;
+  --gradient-home2:black;
+  --gradient-home3:#4e6f5c;
+  --message-bar-input:black;
+  --group-section-active:#141414;
+  --icon-div:black;
+  --border-color:#333333;
+  --nav-item-color:#A6FDB9;
+
+
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
