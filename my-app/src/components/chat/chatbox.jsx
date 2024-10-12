@@ -4,10 +4,10 @@ import { RiFolderOpenLine } from "react-icons/ri";
 import { FaRegUser } from "react-icons/fa";
 import { IoEllipsisHorizontal } from "react-icons/io5";
 import { FiClock } from "react-icons/fi";
-import { BsEmojiSmile } from "react-icons/bs";
-import { IoIosAttach } from "react-icons/io";
-import { BsFillSendFill } from "react-icons/bs";
+
 import styled from "styled-components";
+import { IoCheckmarkDoneOutline } from "react-icons/io5";
+
 import MessageBar from "../messages/messageBar";
 
 const Chatbox = () => {
@@ -42,8 +42,7 @@ const Chatbox = () => {
                 messages except me and you!!
               </div>
               <div className="incoming-message-time">
-                <FiClock />
-                <span>10:00</span>
+                <span>10:00 PM</span>
               </div>
             </div>
             <img src="/assets/Vector 8.png" className="incoming-vector" />
@@ -52,8 +51,8 @@ const Chatbox = () => {
             <div className="outgoing">
               <div className="outgoing-message">Yes, this is so cool!</div>
               <div className="outgoing-message-time">
-                <FiClock />
-                <span>10:00</span>
+              <IoCheckmarkDoneOutline className="icon" />
+                <span>10:00 PM</span>
               </div>
             </div>
             <img src="/assets/Vector 9.png" className="outgoing-vector" />
@@ -205,6 +204,10 @@ const MainContent = styled.div`
         gap: 0.2rem;
         align-items: center;
         font-size: 12px;
+        .icon{
+          font-weight: bold;
+          color:var(--home-main-color);
+        }
       }
     }
     .outgoing-vector {

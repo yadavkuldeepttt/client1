@@ -47,6 +47,9 @@ const Button = styled.button`
   &:hover {
     background-color: var(--home-hover-color); /* Darker shade on hover */
   }
+  &:focus{
+    outline: none;
+  }
 `;
 
 // Navbar component

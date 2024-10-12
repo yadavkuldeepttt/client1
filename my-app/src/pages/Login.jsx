@@ -1,6 +1,14 @@
+import { BsBrightnessHigh } from "react-icons/bs";
+import { IoMdArrowBack } from "react-icons/io";
 import styled from "styled-components";
 
-const Login = () => {
+const Login = ({setActiveSection}) => {
+  const toggleTheme = () => {
+    document.body.classList.toggle("dark-mode");
+  };
+  const handleGoBack = () => {
+    setActiveSection("myProfile");
+  };
   return (
     <Container>
       <div className="chain">
@@ -69,9 +77,17 @@ const Login = () => {
           >
             © 2024 Chainchat.
           </div>
-      
         </div>
       </div>
+
+      {/*theme button  */}
+      <NavItem onClick={toggleTheme}>
+        <BsBrightnessHigh className="icon" />
+      </NavItem>
+      {/*go back button  */}
+      <GoBack onClick={handleGoBack}>
+      <IoMdArrowBack />
+      </GoBack>
     </Container>
   );
 };
@@ -83,15 +99,15 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   height: 100vh; // Full viewport height
-  width: 94.5vw;
+  width: 100vw;
   background: linear-gradient(
-      to right bottom,
-      var(--gradient-home2) 31%,
-      var(--gradient-home1),
-      var(--gradient-home3)
-    ); 
-    
-    .chain {
+    to right bottom,
+    var(--gradient-home2) 31%,
+    var(--gradient-home1),
+    var(--gradient-home3)
+  );
+
+  .chain {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -157,6 +173,56 @@ const Container = styled.div`
     }
   }
 `;
+const NavItem = styled.div`
+  position: fixed;
+  bottom: 25px;
+  right: 20px;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props) => (props.active ? "#64D895" : "#5c5c5c")};
+  color: white;
+  border-radius: 50%;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #64d895;
+    transform: scale(1.1);
+  }
+
+  .icon {
+    font-size: 24px;
+  }
+`;
+const GoBack = styled.div`
+  position: fixed;
+  top: 25px;
+  left: 25px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props) => (props.active ? "#f4f5f7" : "#fafafa")};
+  color: black;
+  border-radius: 50%;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #64d895;
+    transform: scale(1.1);
+  }
+
+  .icon {
+    font-size: 24px;
+  }
+`;
 
 const Button = styled.button`
   background-color: var(--button-green-color);
@@ -169,7 +235,7 @@ const Button = styled.button`
     font-weight: 700;
     font-size: 16px;
     line-height: 24px;
-    color:black;
+    color: black;
   }
   &:hover {
     background-color: var(--button-hover-color);
@@ -177,6 +243,9 @@ const Button = styled.button`
 
   &:active {
     transform: scale(0.98);
+  }
+  &:focus {
+    outline: none;
   }
 `;
 

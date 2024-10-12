@@ -1,9 +1,8 @@
 import React from "react";
-import { IoSearchOutline } from "react-icons/io5";
+import { IoCheckmarkDoneOutline, IoSearchOutline } from "react-icons/io5";
 import { RiFolderOpenLine } from "react-icons/ri";
 import { FaRegUser, FaUserCircle } from "react-icons/fa";
 import { IoEllipsisHorizontal } from "react-icons/io5";
-import { FiClock } from "react-icons/fi";
 
 import styled from "styled-components";
 import MessageBar from "../messages/messageBar";
@@ -66,8 +65,7 @@ const GroupChatbox = ({ groups, activeGroup }) => {
 
                   <div className="incoming-message">{contact.message}</div>
                   <div className="incoming-message-time">
-                    <FiClock />
-                    <span>10:00</span>
+                    <span>10:00 PM</span>
                   </div>
                   <img src="/assets/Vector 8.png" className="incoming-vector" />
                 </div>
@@ -83,12 +81,20 @@ const GroupChatbox = ({ groups, activeGroup }) => {
                   ) : (
                     ""
                   )}
-                  <div className="outgoing-message" >{contact.message}</div>
+                  <div className="outgoing-message">{contact.message}</div>
                   <div className="outgoing-message-time">
-                    <FiClock />
-                    <span>10:00</span>
+                    <IoCheckmarkDoneOutline className="icon" />
+
+                    <span>10:00 PM</span>
                   </div>
-                  <img src="/assets/Vector 9.png" className={`${contact.imageMessage ? "outgoing-vector-image":"outgoing-vector"}`} />
+                  <img
+                    src="/assets/Vector 9.png"
+                    className={`${
+                      contact.imageMessage
+                        ? "outgoing-vector-image"
+                        : "outgoing-vector"
+                    }`}
+                  />
                 </div>
               )}
             </div>
@@ -154,7 +160,7 @@ const MainContent = styled.div`
     height: 100%;
     max-height: 78vh;
     overflow: auto;
-    padding-bottom: 3rem!important;
+    padding-bottom: 3rem !important;
     display: flex;
     padding: 20px;
     padding-right: 0;
@@ -165,7 +171,7 @@ const MainContent = styled.div`
       var(--gradient-home1) 40%,
       var(--gradient-home3)
     );
-    &::-webkit-scrollbar{
+    &::-webkit-scrollbar {
       width: 5px;
     }
 
@@ -251,6 +257,10 @@ const MainContent = styled.div`
         gap: 0.3rem;
         align-items: center;
         font-size: 12px;
+        .icon {
+          font-weight: bold;
+          color: var(--home-main-color);
+        }
       }
     }
     .outgoing-vector {

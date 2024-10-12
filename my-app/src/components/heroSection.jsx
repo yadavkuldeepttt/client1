@@ -82,6 +82,9 @@ const Button = styled.button`
   &:hover {
     background-color: var(--home-hover-color); /* Darker shade on hover */
   }
+  &:focus{
+    outline: none;
+  }
 `;
 const ButtonChat = styled.button`
   padding: 10px 15px;
@@ -98,6 +101,9 @@ const ButtonChat = styled.button`
 
   &:hover {
     background: linear-gradient(270deg, #6099E8 0%, #67EDDC 100%);
+  }
+  &:focus{
+    outline: none;
   }
 `;
 export default HeroSection;

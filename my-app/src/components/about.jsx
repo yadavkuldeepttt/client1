@@ -108,6 +108,9 @@ const Button = styled.button`
   &:hover {
     background-color: var(--home-hover-color); /* Darker shade on hover */
   }
+  &:focus{
+    outline: none;
+  }
 `;
 const ButtonDapp = styled.button`
   padding: 10px 20px;
@@ -121,6 +124,9 @@ const ButtonDapp = styled.button`
   &:hover {
     background-color: var(--home-hover-color); /* Darker shade on hover */
     border: 1px solid var(--border-color);
+  }
+  &:focus{
+    outline: none;
   }
 `;
 

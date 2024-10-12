@@ -31,15 +31,16 @@ const ChatBottom = styled.div`
   gap: 2rem;
   padding: 10px 25px;
   .message-bar {
+    flex: 1;
     input {
       background: var(--message-bar-input);
-      width: 59vw;
       padding: 10px 12px;
       gap: 8px;
       margin: 10px 0;
       border-radius: 7px;
       opacity: 0px;
       outline: none;
+      width: 100%;
       border: none;
     }
   }

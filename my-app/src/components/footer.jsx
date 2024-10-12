@@ -122,6 +122,9 @@ const ButtonLearn = styled.button`
   &:hover {
     background-color: #333333; /* Darker shade on hover */
   }
+  &:focus{
+    outline: none;
+  }
 `;
 const ButtonChain = styled.button`
   padding: 10px 15px;
@@ -139,6 +142,9 @@ const ButtonChain = styled.button`
   &:hover {
     background: var(--home-hover-color); /* Darker shade on hover */
   }
+  &:focus{
+    outline: none;
+  }
 `;
 
 const Button = styled.button`
@@ -153,6 +159,9 @@ const Button = styled.button`
 
   &:hover {
     background-color: var(--home-hover-color); /* Darker shade on hover */
+  }
+  &:focus{
+    outline: none;
   }
 `;
 export default Footer;

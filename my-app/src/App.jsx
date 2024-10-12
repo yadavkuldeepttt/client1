@@ -9,6 +9,8 @@ import { CgUserList } from "react-icons/cg";
 import { GoGear } from "react-icons/go";
 import { CiGlobe } from "react-icons/ci";
 import { BsBrightnessHigh } from "react-icons/bs";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 // import Login from './components/Login'
 // import Register from './components/Register'
@@ -18,81 +20,90 @@ function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   const toggleTheme = () => {
-    document.body.classList.toggle('dark-mode');
+    document.body.classList.toggle("dark-mode");
     setIsDarkMode(!isDarkMode);
   };
+
   const handleNavClick = (section) => {
     setActiveSection(section);
   };
+
   return (
     <>
-        {/* <Register/> */}
-      <Container>
-        <Sidebar>
-          <Logo   active={activeSection === "home"}
-              onClick={() => handleNavClick("home")}>
-            <img
-              className="chain-image"
-              src="/assets/Isolation_Mode.png"
-              alt="Chatchain Logo"
-            />
-          </Logo>
-          <div>
-            <NavItem
-              active={activeSection === "myProfile"}
-              onClick={() => handleNavClick("myProfile")}
+      {/* Conditionally render Sidebar only if not on Login or Register */}
+      {activeSection !== "login" && activeSection !== "register" && (
+        <Container>
+          <Sidebar>
+            <Logo
+              active={activeSection === "home"}
+              onClick={() => handleNavClick("home")}
             >
-              <FaRegUser className="icon" />
-            </NavItem>
-            <NavItem
-              active={activeSection === "messages"}
-              onClick={() => handleNavClick("messages")}
-            >
-              <AiOutlineMessage className="icon" />
-            </NavItem>
-            <NavItem
-              active={activeSection === "groups"}
-              onClick={() => handleNavClick("groups")}
-            >
-              <FiUsers className="icon" />
-            </NavItem>
-            <NavItem
-              active={activeSection === "contacts"}
-              onClick={() => handleNavClick("contacts")}
-            >
-              <CgUserList className="icon" />
-            </NavItem>
-            <NavItem
-              active={activeSection === "settings"}
-              onClick={() => handleNavClick("settings")}
-            >
-              <GoGear className="icon" />
-            </NavItem>
-          </div>
-          <div>
-            <NavItem
-              active={activeSection === "globe"}
-              onClick={() => handleNavClick("globe")}
-            >
-              <CiGlobe className="icon" />
-            </NavItem>
-            <NavItem onClick={toggleTheme}  >
-              <BsBrightnessHigh className="icon" />
-            </NavItem>
-            <NavItem>
-              <FaRegUserCircle
-                className="icon"
-                active={activeSection === "login"}
-                onClick={() => handleNavClick("login")}
+              <img
+                className="chain-image"
+                src="/assets/Isolation_Mode.png"
+                alt="Chatchain Logo"
               />
-            </NavItem>
-          </div>
-        </Sidebar>
+            </Logo>
+            <div>
+              <NavItem
+                active={activeSection === "myProfile"}
+                onClick={() => handleNavClick("myProfile")}
+              >
+                <FaRegUser className="icon" />
+              </NavItem>
+              <NavItem
+                active={activeSection === "messages"}
+                onClick={() => handleNavClick("messages")}
+              >
+                <AiOutlineMessage className="icon" />
+              </NavItem>
+              <NavItem
+                active={activeSection === "groups"}
+                onClick={() => handleNavClick("groups")}
+              >
+                <FiUsers className="icon" />
+              </NavItem>
+              <NavItem
+                active={activeSection === "contacts"}
+                onClick={() => handleNavClick("contacts")}
+              >
+                <CgUserList className="icon" />
+              </NavItem>
+              <NavItem
+                active={activeSection === "settings"}
+                onClick={() => handleNavClick("settings")}
+              >
+                <GoGear className="icon" />
+              </NavItem>
+            </div>
+            <div>
+              <NavItem
+                active={activeSection === "register"}
+                onClick={() => handleNavClick("register")}
+              >
+                <CiGlobe className="icon" />
+              </NavItem>
+              <NavItem onClick={toggleTheme}>
+                <BsBrightnessHigh className="icon" />
+              </NavItem>
+              <NavItem>
+                <FaRegUserCircle
+                  className="icon"
+                  active={activeSection === "login"}
+                  onClick={() => handleNavClick("login")}
+                />
+              </NavItem>
+            </div>
+          </Sidebar>
+          {/* main content */}
+          <Main activeSection={activeSection} setActiveSection={setActiveSection} />
+        </Container>
+      )}
 
-        {/* main content */}
-        <Main activeSection={activeSection} />
-      </Container>
-        {/* <Login/> */}
+      {/* Directly render Main component if on Login or Register */}
+      {activeSection === "login" && <Login  setActiveSection={setActiveSection}/>}
+      {activeSection === "register" && <Register setActiveSection={setActiveSection}/>}
+      
     </>
   );
 }
@@ -100,6 +111,7 @@ function App() {
 // Styled Components
 const Container = styled.div`
   display: flex;
+  width: 100vw;
   height: 100vh; // Full viewport height
   background-color: #f0f0f0;
 `;
