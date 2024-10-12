@@ -1,27 +1,31 @@
 import React from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import { RiFolderOpenLine } from "react-icons/ri";
-import { FaRegUser } from "react-icons/fa";
+import { FaRegUser, FaUserCircle } from "react-icons/fa";
 import { IoEllipsisHorizontal } from "react-icons/io5";
 import { FiClock } from "react-icons/fi";
-import { BsEmojiSmile } from "react-icons/bs";
-import { IoIosAttach } from "react-icons/io";
-import { BsFillSendFill } from "react-icons/bs";
+
 import styled from "styled-components";
+import MessageBar from "../messages/messageBar";
+import ImageMessage from "./imageMessage";
 
 const GroupChatbox = ({ groups, activeGroup }) => {
-    console.log(groups?.length ? groups : "Groups is undefined at initial render", "groups data");
-  
-    const currentGroup = groups?.[activeGroup] || null;
-  
-    if (!currentGroup) {
-      return <div>Select a group to start chatting</div>;
-    }
+  console.log(
+    groups?.length ? groups : "Groups is undefined at initial render",
+    "groups data"
+  );
 
+  const currentGroup = groups?.[activeGroup] || null;
 
-     // Calculate total members and the count of online members
+  if (!currentGroup) {
+    return <div>Select a group to start chatting</div>;
+  }
+
+  // Calculate total members and the count of online members
   const totalMembers = currentGroup.contacts.length;
-  const onlineMembers = currentGroup.contacts.filter(contact => contact.status === 'online').length;
+  const onlineMembers = currentGroup.contacts.filter(
+    (contact) => contact.status === "online"
+  ).length;
 
   return (
     <>
@@ -32,8 +36,12 @@ const GroupChatbox = ({ groups, activeGroup }) => {
           <div className="top-header-left">
             <img className="i" src="/assets/Layer_1.png" alt="User Avatar" />
             <div className="top-header-item-details">
-              <div className="top-header-item-name">{currentGroup.groupName || "Group"}</div>
-              <div className="top-header-item-message">{totalMembers} members, {onlineMembers} online</div>
+              <div className="top-header-item-name">
+                {currentGroup.groupName || "Group"}
+              </div>
+              <div className="top-header-item-message">
+                {totalMembers} members, {onlineMembers} online
+              </div>
             </div>
           </div>
           {/* top header right */}
@@ -44,49 +52,51 @@ const GroupChatbox = ({ groups, activeGroup }) => {
             <IoEllipsisHorizontal className="icon" />
           </div>
         </div>
-        {/* chatting box */}
-   {/* Chatting Box */}
-   <div className="chatting-box">
-        {currentGroup.contacts.map((contact, index) => (
-          <div style={{ position: "relative" }} key={contact.id}>
-            {index % 2 === 0 ? (
-              // Incoming message style
-              <div className="incoming">
-                <div className="incoming-message">{contact.message}</div>
-                <div className="incoming-message-time">
-                  <FiClock />
-                  <span>10:00</span>
+        {/* Chatting Box */}
+        <div className="chatting-box">
+          {currentGroup.contacts.map((contact, index) => (
+            <div style={{ position: "relative" }} key={contact.id}>
+              {index % 2 === 0 ? (
+                // Incoming message style
+                <div className="incoming">
+                  <div className="incoming-user">
+                    <FaUserCircle className="icon" />
+                    <span>{contact.name}</span>
+                  </div>
+
+                  <div className="incoming-message">{contact.message}</div>
+                  <div className="incoming-message-time">
+                    <FiClock />
+                    <span>10:00</span>
+                  </div>
+                  <img src="/assets/Vector 8.png" className="incoming-vector" />
                 </div>
-                <img src="/assets/Vector 8.png" className="incoming-vector" />
-              </div>
-            ) : (
-              // Outgoing message style
-              <div className="outgoing">
-                <div className="outgoing-message">{contact.message}</div>
-                <div className="outgoing-message-time">
-                  <FiClock />
-                  <span>10:00</span>
+              ) : (
+                // Outgoing message style
+                <div className="outgoing">
+                  {contact.imageMessage ? (
+                    // Render the ImageMessage component if imageMessage exists
+                    <ImageMessage
+                      src={contact.imageMessage}
+                      alt="Image Message"
+                    />
+                  ) : (
+                    ""
+                  )}
+                  <div className="outgoing-message" >{contact.message}</div>
+                  <div className="outgoing-message-time">
+                    <FiClock />
+                    <span>10:00</span>
+                  </div>
+                  <img src="/assets/Vector 9.png" className={`${contact.imageMessage ? "outgoing-vector-image":"outgoing-vector"}`} />
                 </div>
-                <img src="/assets/Vector 9.png" className="outgoing-vector" />
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
+              )}
+            </div>
+          ))}
+        </div>
 
         {/* chat bottom */}
-        <div className="chat-bottom">
-          <div className="message-bar">
-            <input type="text" placeholder="Type Message" />
-          </div>
-          <div className="icons">
-            <BsEmojiSmile />
-            <IoIosAttach />
-            <div className="send-icon">
-              <BsFillSendFill className="icon2" />
-            </div>
-          </div>
-        </div>
+        <MessageBar />
       </MainContent>
     </>
   );
@@ -97,6 +107,7 @@ const MainContent = styled.div`
   display: flex;
   flex-direction: column; /* Arrange items vertically */
   background-color: #fff; /* White background for main content */
+  border-left: 1px solid #64d895;
   .top-header {
     display: flex;
     flex-direction: row;
@@ -104,8 +115,7 @@ const MainContent = styled.div`
     justify-content: space-between;
     background: var(--message-sidebar);
     padding: 10px 15px;
-    border-bottom: 2px solid #384f4f;
-    border-left: 1px solid #64d895;
+    border-bottom: 2px solid #384f4f63;
     .top-header-left {
       display: flex;
       flex-direction: row;
@@ -133,28 +143,35 @@ const MainContent = styled.div`
       gap: 1rem;
       .icon {
         font-size: 22px;
+        cursor: pointer;
+        &:hover {
+          color: var(--icon-hover-color);
+        }
       }
     }
   }
   .chatting-box {
     height: 100%;
-    max-height: 80vh;
+    max-height: 78vh;
+    overflow: auto;
+    padding-bottom: 3rem!important;
     display: flex;
     padding: 20px;
     padding-right: 0;
     flex-direction: column;
-
     background: linear-gradient(
       to right bottom,
-      var(--gradient-home2) 40%,
-      var(--gradient-home1),
+      var(--gradient-home2) 31%,
+      var(--gradient-home1) 40%,
       var(--gradient-home3)
     );
+    &::-webkit-scrollbar{
+      width: 5px;
+    }
 
     .incoming {
-   
       max-width: 715px;
-      padding: 15px 20px;
+      padding: 10px 20px;
       border-radius: 17px;
       background: #45b57f;
       color: #fff;
@@ -167,30 +184,45 @@ const MainContent = styled.div`
       align-self: flex-start; /* Aligns message to the left */
       /* Optional: Drop shadow for a floating effect */
       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      .incoming-user {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        .icon {
+          font-size: 13px;
+        }
+        span {
+          font-family: "poppins";
+          font-size: 11px;
+          font-weight: 600;
+          letter-spacing: 0.08rem;
+        }
+      }
       .incoming-message {
         //styleName: Caption/large/regular;
-        font-size: 14px;
+        font-size: 12px;
         font-weight: 500;
         line-height: 22px;
+        margin-top: 0.2rem;
         text-align: left;
         color: #ffff;
       }
       .incoming-message-time {
         display: flex;
+        margin-top: 0.5rem;
         justify-content: flex-end;
-        gap: 0.5rem;
+        gap: 0.3rem;
         align-items: center;
-        font-size: 14px;
+        font-size: 12px;
       }
     }
     .incoming-vector {
       position: absolute;
-      top: 61px;
+      top: 72px;
       left: 0;
     }
     .outgoing {
-      width: 100%;
-      max-width: 184px;
+      max-width: 400px;
       height: auto;
       padding: 15px 20px;
       border-radius: 17px;
@@ -201,67 +233,35 @@ const MainContent = styled.div`
       opacity: 1;
       float: right;
       align-self: flex-end; /* Aligns message to the right */
-  margin-right: 1rem;
+      margin-right: 1rem;
       /* Optional: Drop shadow for a floating effect */
       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
       .outgoing-message {
         //styleName: Caption/large/regular;
-        font-size: 14px;
+        font-size: 12px;
         font-weight: 500;
         line-height: 22px;
-        text-align: left;
+        text-align: right;
         color: black;
       }
       .outgoing-message-time {
+        margin-top: 0.5rem;
         display: flex;
         justify-content: flex-end;
-        gap: 0.5rem;
+        gap: 0.3rem;
         align-items: center;
-        font-size: 14px;
+        font-size: 12px;
       }
     }
     .outgoing-vector {
       position: absolute;
-      top: 84px;
+      top: 65px;
       right: 16px;
     }
-  }
-  .chat-bottom {
-    background: var(--message-sidebar);
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    padding: 10px 25px;
-    .message-bar {
-      input {
-        background: var(--message-bar-input);
-        width: 55vw;
-        padding: 10px 12px;
-        gap: 8px;
-        margin: 10px 0;
-        border-radius: 7px;
-        opacity: 0px;
-        outline: none;
-        border: none;
-      }
-    }
-    .icons {
-      display: flex;
-      align-items: center;
-      gap: 1.4rem;
-      font-size: 20px;
-      cursor: pointer;
-
-      .send-icon {
-        background: linear-gradient(360deg, #61a4e7 0%, #a6fdb9 100%);
-        padding: 7px;
-        display: flex;
-        align-items: center;
-        border-radius: 5px;
-        .icon2 {
-          color: #ffff;
-        }
-      }
+    .outgoing-vector-image {
+      position: absolute;
+      bottom: -11px;
+      right: 16px;
     }
   }
 `;

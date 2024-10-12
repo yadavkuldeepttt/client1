@@ -50,8 +50,12 @@ const Container = styled.div`
   align-items: center;
   height: 100vh; // Full viewport height
   width: 94.5vw;
-  background-color: var(--background-color); // Background color
-  .chain {
+  background: linear-gradient(
+      to right bottom,
+      var(--gradient-home2) 31%,
+      var(--gradient-home1),
+      var(--gradient-home3)
+    );   .chain {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -126,6 +130,7 @@ const Button = styled.button`
     font-weight: 700;
     font-size: 16px;
     line-height: 24px;
+    color: black;
   }
   &:hover {
     background-color: #57c987;

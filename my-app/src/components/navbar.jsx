@@ -30,13 +30,13 @@ const NavItem = styled.li`
   letter-spacing: 0.09rem;
   font-weight: 500;
   &:hover {
-    text-decoration: underline; /* Underline on hover */
+    color:var(--home-main-color);
   }
 `;
 
 const Button = styled.button`
   padding: 10px 20px;
-  background: #A6FDB9;
+  background: var(--home-green-color);
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -45,7 +45,7 @@ const Button = styled.button`
   font-weight: 600;
 
   &:hover {
-    background-color: #57d974; /* Darker shade on hover */
+    background-color: var(--home-hover-color); /* Darker shade on hover */
   }
 `;
 

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Chatbox from "../common/chatbox";
+import Chatbox from "../chat/chatbox";
 import { FaEllipsisVertical } from "react-icons/fa6";
 
 const ProfileSection = () => {
@@ -80,17 +80,17 @@ const Container = styled.div`
     background: var(--message-sidebar);
     padding: 20px; /* Add some padding */
     display: flex;
-    max-width: 25vw;
+    max-width: 21vw;
     height: 100vh;
     flex-direction: column; /* Arrange items vertically */
     .maintitle {
-      font-family: "poppins";
-      font-size: 21px;
+      font-family: "Terminator";
+      font-size: 16px;
       font-weight: 500;
       letter-spacing: 0.09rem;
       line-height: 36px;
       text-align: left;
-      color: #64d895;
+      color: var(--button-green-color);
     }
     .profile-section {
       display: flex;
@@ -126,7 +126,7 @@ const Container = styled.div`
           .dot {
             width: 8px;
             height: 8px;
-            background: #64d895;
+            background: var(--green-color);
             border-radius: 30px;
           }
         }
@@ -174,7 +174,7 @@ const Container = styled.div`
 `;
 
 const Button = styled.button`
-  background-color: #64d895;
+  background-color: var(--button-green-color);
   border-radius: 12px;
   margin-top: 1rem;
   padding: 8px 16px;
@@ -186,9 +186,10 @@ const Button = styled.button`
     font-weight: 700;
     font-size: 14px;
     line-height: 24px;
+    color:black;
   }
   &:hover {
-    background-color: #57c987;
+    background-color: var(--button-hover-color);
   }
 
   &:active {

@@ -58,7 +58,8 @@ const Container = styled.nav`
     justify-content: center;
     align-items: center;
     .footer1 {
-      width: 700px;
+      max-width: 80vvw;
+      width: 60vw;
       height: 200px;
       display: flex;
       flex-direction: row;
@@ -66,7 +67,10 @@ const Container = styled.nav`
       align-items: center;
       border-radius: 30px;
       opacity: 0px;
-      background: linear-gradient(90deg, #a6fdb9 0%, #6099e8 100%);
+      background: linear-gradient(90deg, var(--home-green-color) 0%, var(--home-blue-color) 100%);
+      h2{
+        font-family: 'Terminator';
+      }
     }
     .footer1-buttons {
       display: flex;
@@ -75,8 +79,8 @@ const Container = styled.nav`
     }
     .footer2 {
       width: 94.5vw;
-      border-top: 1px solid #49dd69;
-      border-bottom: 1px solid #49dd69;
+      border-top: 1px solid var(--home-main-color);
+      border-bottom: 1px solid var(--home-main-color);
       display: flex;
       justify-content: space-around;
       align-items: center;
@@ -84,7 +88,8 @@ const Container = styled.nav`
       margin: 4rem 0;
       background: var(--background-color);
       h2 {
-        color: #49dd69;
+        font-family: 'Terminator';
+        color: var(--home-main-color);
       }
       .footer2-detail{
         display: flex;
@@ -132,13 +137,13 @@ const ButtonChain = styled.button`
   font-weight: 500;
 
   &:hover {
-    background: #57d974; /* Darker shade on hover */
+    background: var(--home-hover-color); /* Darker shade on hover */
   }
 `;
 
 const Button = styled.button`
   padding: 10px 20px;
-  background: #a6fdb9;
+  background: var(--home-green-color);
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -147,7 +152,7 @@ const Button = styled.button`
   font-weight: 600;
 
   &:hover {
-    background-color: #57d974; /* Darker shade on hover */
+    background-color: var(--home-hover-color); /* Darker shade on hover */
   }
 `;
 export default Footer;

@@ -93,13 +93,16 @@ const Container = styled.nav`
     .features-heading {
       font-family: "Poppins";
       h4 {
-        color: #49dd69;
+        color: var(--home-main-color);
         letter-spacing: 0.09rem;
       }
     }
     .features-heading2 {
+      font-family: 'Terminator';
+
       h2 {
-        color: #49dd69;
+        color: var(--home-main-color);
+        font-size: 20px;
       }
     }
     .features-text {
@@ -118,13 +121,18 @@ const Container = styled.nav`
         width:230px;
         height:20vh;
         padding:15px;
-        border: 2px solid #a6fdb9;
+        border: 2px solid var(--home-green-color);
         background-color: var(--background-color);
         border-radius: 22px;
         display: flex;
         flex-direction: row;
         gap:1rem;
         align-items: center;
+        cursor: pointer;
+        transition: background 0.5s ease-in-out;
+        &:hover{
+          background: var(--home-hover-color)
+        }
         img {
           width: 55px;
           height: 55px;

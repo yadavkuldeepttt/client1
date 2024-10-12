@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { FiUsers } from "react-icons/fi";
-import GroupChatbox from "../common/groupChatbox";
+import GroupChatbox from "../chat/groupChatbox";
 
 const groupsData = [
   {
@@ -20,6 +20,21 @@ const groupsData = [
         name: "Lisa Williams",
         message: "Are you free this weekend?",
         status:'offline',
+
+      },
+      {
+        id: 3,
+        name: "Lisa Williams",
+        message: "Are you free this weekend?",
+        status:'offline',
+
+      },
+      {
+        id: 4,
+        name: "Lisa Williams",
+        message: "images",
+        status:'offline',
+        imageMessage:"/assets/Mask group.png",
 
       },
     ],
@@ -129,17 +144,17 @@ const Container = styled.div`
     background: var(--message-sidebar);
     padding: 20px; /* Add some padding */
     display: flex;
-    max-width: 25vw;
+    max-width: 21vw;
     height: 100vh;
     flex-direction: column; /* Arrange items vertically */
     .maintitle {
-      font-family: "poppins";
-      font-size: 21px;
+      font-family: "Terminator";
+      font-size: 16px;
       font-weight: 500;
       letter-spacing: 0.09rem;
       line-height: 36px;
       text-align: left;
-      color: #64d895;
+      color: var(--button-green-color);
     }
     .contacts-list {
       flex: 1; /* Take up remaining space */
@@ -149,6 +164,7 @@ const Container = styled.div`
       .group-section {
         padding: 10px;
         border-radius: 7px;
+        cursor: pointer;
         &.active {
           background-color: var(--group-section-active); /* Change background color for active group */
           border-left: 5px solid #64d895; /* Add a left border for the active group */

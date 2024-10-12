@@ -62,14 +62,15 @@ const Container = styled.nav`
     .about-details {
       width: 30vw;
       label {
-        color: #49dd69;
+        color: var(--home-main-color);
         font-weight: 600;
         font-size: 12px;
       }
       .about-details-heading {
+        font-family: 'Terminator';
         font-size: 20px;
         font-weight: 600;
-        color: #49dd69;
+        color: var(--home-main-color);
         letter-spacing: 0.09rem;
       }
       .about-details-text {
@@ -79,7 +80,7 @@ const Container = styled.nav`
       .about-details-list {
         padding: 15px 23px;
         ul li {
-          color: #49dd69;
+          color: var(--home-main-color);
           font-size: 13px;
         }
       }
@@ -105,7 +106,7 @@ const Button = styled.button`
   font-size: 14px;
   font-weight: 500;
   &:hover {
-    background-color: #57d974; /* Darker shade on hover */
+    background-color: var(--home-hover-color); /* Darker shade on hover */
   }
 `;
 const ButtonDapp = styled.button`
@@ -118,7 +119,7 @@ const ButtonDapp = styled.button`
   font-size: 14px;
   font-weight: 500;
   &:hover {
-    background-color: #57d974; /* Darker shade on hover */
+    background-color: var(--home-hover-color); /* Darker shade on hover */
     border: 1px solid var(--border-color);
   }
 `;

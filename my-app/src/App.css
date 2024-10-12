@@ -1,18 +1,24 @@
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-
-}
-body{
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    overflow: hidden;
+@font-face {
+  font-family: "Terminator";
+  src: url("../public/assets/fonts/Terminator-mLLx.ttf") format("truetype"); /* Make sure to use the correct path */
+  font-weight: normal;
+  font-style: normal;
 }
 
-.text-style{
-  color:'#141414';
-  font-size:14px;
-  font-weight:600;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Poppins", sans-serif;
+  overflow: hidden;
+}
+
+.text-style {
+  color: "#141414";
+  font-size: 14px;
+  font-weight: 600;
 }
 
 /* Global.css or styled-components global styles */
@@ -21,16 +27,25 @@ body{
   --text-color: #333333;
   --sidebar-bg-color: #f0f0f0;
   --icon-color: #333333;
-  --message-sidebar:#ebebeb;
-  --chat-item-name:black;
-  --gradient-home1:#fefefe;
-  --gradient-home2:#fefefe;
-  --gradient-home3:#9bc4e24f;
-  --message-bar-input:#c2c2c2;
-  --group-section-active:#fafafa;
-  --icon-div:#d9d9d9;
-  --border-color:#cccccc;
-  --nav-item-color:#141414;
+  --message-sidebar: #ebebeb;
+  --chat-item-name: black;
+  --gradient-home1: #fefefe;
+  --gradient-home2: #fefefe;
+  --gradient-home3: #9bc4e24f;
+  --message-bar-input: #c2c2c2;
+  --group-section-active: #fafafa;
+  --icon-div: #d9d9d9;
+  --border-color: #cccccc;
+  --nav-item-color: #141414;
+  --button-hover-color: #57c987;
+  --icon-hover-color: #57c987;
+  --green-color: #64d895;
+  --button-green-color: #64d895;
+  --home-green-color: #a6fdb9;
+  --home-hover-color: #57d974;
+  --home-main-color: #49dd69;
+  --home-blue-color: #6099e8;
+  --home-list: #384f4f;
 }
 
 body.dark-mode {
@@ -38,18 +53,16 @@ body.dark-mode {
   --text-color: #f0f0f0;
   --sidebar-bg-color: black;
   --icon-color: #f0f0f0;
-  --message-sidebar:#161515;
-  --chat-item-name:#fff;
-  --gradient-home1:#060706;
-  --gradient-home2:black;
-  --gradient-home3:#4e6f5c;
-  --message-bar-input:black;
-  --group-section-active:#141414;
-  --icon-div:black;
-  --border-color:#333333;
-  --nav-item-color:#A6FDB9;
-
-
+  --message-sidebar: #161515;
+  --chat-item-name: #fff;
+  --gradient-home1: #060706;
+  --gradient-home2: black;
+  --gradient-home3: #4e6f5c;
+  --message-bar-input: black;
+  --group-section-active: #141414;
+  --icon-div: black;
+  --border-color: #333333;
+  --nav-item-color: #a6fdb9;
 }
 
 body {

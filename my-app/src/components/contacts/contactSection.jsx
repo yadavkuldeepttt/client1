@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Chatbox from "../common/chatbox";
+import Chatbox from "../chat/chatbox";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import { RiFolderOpenLine } from "react-icons/ri";
+import { CgUserList } from "react-icons/cg";
 
 const contactsData = [
   {
@@ -35,8 +36,16 @@ const ContactSection = () => {
       <Container>
         <div className="contact-sidebar">
           {/* Logo */}
-
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
           <div className="maintitle">CONTACTS</div>
+          <CgUserList   style={{ fontSize: "20px", color: "#64d895" }}/>
+          </div>
           {/* Search Bar */}
           <div className="searchbar">
             <input type="text" placeholder="search users" />
@@ -80,25 +89,25 @@ const Container = styled.div`
   .contact-sidebar {
     flex: 1; /* Take up one part of the container */
     background: var(--message-sidebar);
-    padding: 20px; /* Add some padding */
+    padding: 20px 12px; /* Add some padding */
     display: flex;
-    max-width: 25vw;
+    max-width: 21vw;
     height: 100vh;
     flex-direction: column; /* Arrange items vertically */
     .maintitle {
-      font-family: "poppins";
-      font-size: 21px;
+      font-family: "Terminator";
+      font-size: 16px;
       font-weight: 500;
       letter-spacing: 0.09rem;
       line-height: 36px;
       text-align: left;
-      color: #64d895;
+      color: var(--button-green-color);
     }
     .contacts-list {
       flex: 1; /* Take up remaining space */
       overflow-y: auto; /* Allow scrolling if content overflows */
       margin-bottom: 20px; /* Space below contact list */
-      padding: 8px; /* Padding inside the contact list */
+      padding: 8px 5px; /* Padding inside the contact list */
       .contact-item {
         display: flex;
         flex-direction: row;
@@ -137,7 +146,10 @@ const Container = styled.div`
           gap:0.6rem;
           font-size: 16px;
           .icon{
-            cursor: pointer
+            cursor: pointer;
+            &:hover{
+              color:var(--icon-hover-color);
+            }
           }
           }
         }

@@ -7,6 +7,7 @@ import GroupSection from "../components/groups/groupSection";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Home from "./home";
+import SettingSection from "../components/settings/settingSection";
 
 const Main = ({ activeSection }) => {
   
@@ -16,6 +17,7 @@ const Main = ({ activeSection }) => {
       {activeSection === "contacts" && <ContactSection  />}
       {activeSection === "myProfile" && <ProfileSection  />}
       {activeSection === "groups" && <GroupSection  />}
+      {activeSection === "settings" && <SettingSection  />}
       {activeSection === "login" && <Login/>}
       {activeSection === "globe" && <Register/>}
       {activeSection === "home" && <Home/>}
@@ -27,7 +29,7 @@ const MainContent = styled.div`
   flex: 1;
 
   display: flex;
-  width: 94.5vw;
+  width: 94.8vw;
   flex-direction: column;
 `;
 

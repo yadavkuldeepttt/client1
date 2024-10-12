@@ -19,14 +19,7 @@ const roadmap = [
       "Social Media Verification",
     ],
   },
-  //   {
-  //     title: "Phase 3",
-  //     list: [
-  //       "Website Development",
-  //       "Whitepaper creation",
-  //       "Social Media Verification",
-  //     ],
-  //   },
+
 ];
 
 // fearures component
@@ -71,7 +64,8 @@ const Container = styled.nav`
       text-align: center;
     
       h2 {
-        color: #49dd69;
+        font-family: 'Terminator';
+        color: var(--home-main-color);
       }
     }
 
@@ -87,10 +81,15 @@ const Container = styled.nav`
         position: relative;
         max-height: 50vh;
         padding: 18px;
-        border: 2px solid #a6fdb9;
+        border: 2px solid var(--home-green-color);
         background-color: var(--background-color);
         border-radius: 22px;
         gap: 1rem;
+        cursor: pointer;
+        transition: background 0.5s ease-in-out;
+        &:hover{
+          background: var(--home-hover-color)
+        }
         ul {
           padding: 18px;
           li {
@@ -112,7 +111,7 @@ const Container = styled.nav`
           position: absolute;
           width: 20px; /* Diameter of the circle */
           height: 20px;
-          background-color: #a6fdb9; /* Circle color */
+          background-color: var(--home-green-color); /* Circle color */
           border-radius: 50%;
           top: -22px; /* Position circle above the item */
           left: 223%;
@@ -123,7 +122,7 @@ const Container = styled.nav`
           position: absolute;
           width: 20px; /* Diameter of the circle */
           height: 20px;
-          background-color: #6099e8; /* Circle color */
+          background-color: var(--home-blue-color); /* Circle color */
           border-radius: 50%;
           top: 191px;
           right: 203%;
@@ -138,7 +137,7 @@ const Container = styled.nav`
           /* transform: translateX(-50%); */
           width: 3px;
           height: 60vh;
-          background: linear-gradient(90deg, #a6fdb9 0%, #6099e8 100%);
+          background: linear-gradient(90deg, var(--home-green-color) 0%, var(--home-blue-color) 100%);
           z-index: 1;
         }
       }

@@ -46,15 +46,15 @@ const Container = styled.nav`
     }
   }
   .hero-section-heading {
-    font-family: "Poppins";
+    font-family: "Terminator";
     margin-top: 2.5rem;
-    font-size: 65px;
+    font-size: 59px;
     font-weight: 500;
-    line-height: 75px;
+    line-height: 74px;
     letter-spacing: 0.1rem;
     text-align: center;
     span {
-      color: #49dd69;
+      color: var(--home-main-color);
     }
   }
   .hero-section-text {
@@ -71,7 +71,7 @@ const Container = styled.nav`
 
 const Button = styled.button`
   padding: 10px 20px;
-  background: #a6fdb9;
+  background: var(--home-green-color);
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -80,7 +80,7 @@ const Button = styled.button`
   font-weight: 600;
 
   &:hover {
-    background-color: #57d974; /* Darker shade on hover */
+    background-color: var(--home-hover-color); /* Darker shade on hover */
   }
 `;
 const ButtonChat = styled.button`
@@ -97,7 +97,7 @@ const ButtonChat = styled.button`
   font-weight: 600;
 
   &:hover {
-    background: #57d974; /* Darker shade on hover */
+    background: linear-gradient(270deg, #6099E8 0%, #67EDDC 100%);
   }
 `;
 export default HeroSection;

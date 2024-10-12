@@ -59,8 +59,8 @@ const Container = styled.nav`
   padding: 3rem 20px;
   display: flex;
   width: 94.5vw;
-  border-top: 1px solid #49dd69;
-  border-bottom: 1px solid #49dd69;
+  border-top: 1px solid var(--home-main-color);
+  border-bottom: 1px solid var(--home-main-color);
   background: var(--sidebar-bg-color);
   flex-direction: column;
   align-items: center;
@@ -69,7 +69,7 @@ const Container = styled.nav`
   .partners-heading {
     font-family: "Poppins";
     h4 {
-      color: #49dd69;
+      color: var(--home-main-color);
     }
   }
   .partners-list {
@@ -86,7 +86,7 @@ const Container = styled.nav`
 
       border-radius: 22px;
 
-      background: #384f4f;
+      background: var(--home-list);
     }
   }
 `;

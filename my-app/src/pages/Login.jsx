@@ -84,8 +84,14 @@ const Container = styled.div`
   align-items: center;
   height: 100vh; // Full viewport height
   width: 94.5vw;
-  background-color: var(--background-color); // Background color
-  .chain {
+  background: linear-gradient(
+      to right bottom,
+      var(--gradient-home2) 31%,
+      var(--gradient-home1),
+      var(--gradient-home3)
+    ); 
+    
+    .chain {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -153,7 +159,7 @@ const Container = styled.div`
 `;
 
 const Button = styled.button`
-  background-color: #64d895;
+  background-color: var(--button-green-color);
   border-radius: 12px;
   padding: 8px 16px;
   border: none;
@@ -163,9 +169,10 @@ const Button = styled.button`
     font-weight: 700;
     font-size: 16px;
     line-height: 24px;
+    color:black;
   }
   &:hover {
-    background-color: #57c987;
+    background-color: var(--button-hover-color);
   }
 
   &:active {
@@ -195,10 +202,10 @@ const FormContainer = styled.div`
   }
   .icon-div {
     background: var(--icon-div);
-    width: 33px;
-    height: 42px;
+    width: 40px;
+    height: 56px;
     position: absolute;
-    left: 0.7px;
+    left: 0.6px;
     top: 50%;
     display: flex;
     justify-content: center;
@@ -215,7 +222,7 @@ const FormContainer = styled.div`
 
   .password-input {
     width: 100%;
-    padding: 12px 12px 12px 40px; // Padding adjusted for the icon
+    padding: 19px 12px 19px 44px; // Padding adjusted for the icon
     font-size: 16px;
     color: #333333;
     background-color: var(--background-color);

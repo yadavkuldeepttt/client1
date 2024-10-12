@@ -8,6 +8,7 @@ import { BsEmojiSmile } from "react-icons/bs";
 import { IoIosAttach } from "react-icons/io";
 import { BsFillSendFill } from "react-icons/bs";
 import styled from "styled-components";
+import MessageBar from "../messages/messageBar";
 
 const Chatbox = () => {
   return (
@@ -60,18 +61,7 @@ const Chatbox = () => {
         </div>
 
         {/* chat bottom */}
-        <div className="chat-bottom">
-          <div className="message-bar">
-            <input type="text" placeholder="Type Message" />
-          </div>
-          <div className="icons">
-            <BsEmojiSmile />
-            <IoIosAttach />
-            <div className="send-icon">
-              <BsFillSendFill className="icon2" />
-            </div>
-          </div>
-        </div>
+     <MessageBar/>
       </MainContent>
     </>
   );
@@ -82,6 +72,7 @@ const MainContent = styled.div`
   display: flex;
   flex-direction: column; /* Arrange items vertically */
   background-color: #fff; /* White background for main content */
+  border-left: 1px solid #64d895;
   .top-header {
     display: flex;
     flex-direction: row;
@@ -89,8 +80,8 @@ const MainContent = styled.div`
     justify-content: space-between;
     background: var(--message-sidebar);
     padding: 10px 15px;
-    border-bottom: 2px solid #384f4f;
-    border-left: 1px solid #64d895;
+    border-bottom: 2px solid #384f4f63;
+
     .top-header-left {
       display: flex;
       flex-direction: row;
@@ -118,6 +109,10 @@ const MainContent = styled.div`
       gap: 1rem;
       .icon {
         font-size: 22px;
+        cursor: pointer;
+        &:hover{
+          color:var(--icon-hover-color);
+        }
       }
     }
   }
@@ -125,14 +120,21 @@ const MainContent = styled.div`
     height: 100%;
     max-height: 80vh;
     display: flex;
+    padding-bottom: 3rem!important;
     padding: 20px;
+    overflow: auto;
+    flex-direction: column;
     padding-right: 0;
     background: linear-gradient(
       to right bottom,
-      var(--gradient-home2) 40%,
-      var(--gradient-home1),
+      var(--gradient-home2) 31%,
+      var(--gradient-home1) 40%,
       var(--gradient-home3)
     );
+    &::-webkit-scrollbar{
+      width: 5px;
+    }
+
 
     .incoming {
       width: 100%;
@@ -161,14 +163,14 @@ const MainContent = styled.div`
       .incoming-message-time {
         display: flex;
         justify-content: flex-end;
-        gap: 0.5rem;
+        gap: 0.2rem;
         align-items: center;
-        font-size: 14px;
+        font-size: 12px;
       }
     }
     .incoming-vector {
       position: absolute;
-      top: 83px;
+      top: 77px;
       left: 0;
     }
 
@@ -185,8 +187,8 @@ const MainContent = styled.div`
       line-height: 1.5;
       opacity: 1;
       align-self: flex-end;
-      margin: auto 0;
-      margin-top: 7rem;
+      float: right;
+      margin-right: 1rem;
       /* Optional: Drop shadow for a floating effect */
       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
       .outgoing-message {
@@ -200,55 +202,18 @@ const MainContent = styled.div`
       .outgoing-message-time {
         display: flex;
         justify-content: flex-end;
-        gap: 0.5rem;
+        gap: 0.2rem;
         align-items: center;
-        font-size: 14px;
+        font-size: 12px;
       }
     }
     .outgoing-vector {
       position: absolute;
-      top: 173px;
-      right: 0;
+      top: 56px;
+      right: 16px;
     }
   }
-  .chat-bottom {
-    background: var(--message-sidebar);
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    padding: 10px 25px;
-    .message-bar {
-      input {
-        background: var(--message-bar-input);
-        width: 55vw;
-        padding: 10px 12px;
-        gap: 8px;
-        margin: 10px 0;
-        border-radius: 7px;
-        opacity: 0px;
-        outline: none;
-        border: none;
-      }
-    }
-    .icons {
-      display: flex;
-      align-items: center;
-      gap: 1.4rem;
-      font-size: 20px;
-      cursor: pointer;
 
-      .send-icon {
-        background: linear-gradient(360deg, #61a4e7 0%, #a6fdb9 100%);
-        padding: 7px;
-        display: flex;
-        align-items: center;
-        border-radius: 5px;
-        .icon2 {
-          color: #ffff;
-        }
-      }
-    }
-  }
 `;
 
 export default Chatbox;
