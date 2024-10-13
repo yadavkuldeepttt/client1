@@ -2,7 +2,7 @@ import { BsBrightnessHigh } from "react-icons/bs";
 import { IoMdArrowBack } from "react-icons/io";
 import styled from "styled-components";
 
-const Login = ({setActiveSection}) => {
+const Login = ({ setActiveSection }) => {
   const toggleTheme = () => {
     document.body.classList.toggle("dark-mode");
   };
@@ -58,7 +58,7 @@ const Login = ({setActiveSection}) => {
               marginTop: "1.7rem",
             }}
           >
-            Don't have an account ? 
+            <span>Don't have an account ? </span>
             <span className="newWalletGenerate">
               {" "}
               Generate new wallet or import wallet
@@ -86,7 +86,7 @@ const Login = ({setActiveSection}) => {
       </NavItem>
       {/*go back button  */}
       <GoBack onClick={handleGoBack}>
-      <IoMdArrowBack />
+        <IoMdArrowBack />
       </GoBack>
     </Container>
   );
@@ -98,6 +98,7 @@ const Container = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
   height: 100vh; // Full viewport height
   width: 100vw;
   background: linear-gradient(
@@ -170,6 +171,33 @@ const Container = styled.div`
     }
     .chainchat {
       color: var(--text-color);
+    }
+  }
+  @media (max-width: 600px) {
+    .chain {
+      .chain-header {
+        margin-bottom: 15px;
+        .chain-image {
+          width: 40px;
+          height: 42px;
+          margin-right: 10px;
+        }
+        .chain-title {
+          font-size: 21px;
+        }
+        .chain-welcome-text {
+          font-size: 12px;
+        }
+      }
+      .chain-card {
+        .chain-sub-card {
+          padding: 2.5rem 0;
+        }
+        .text-style{
+          display: flex;
+          flex-direction: column;
+        }
+      }
     }
   }
 `;
@@ -247,6 +275,11 @@ const Button = styled.button`
   &:focus {
     outline: none;
   }
+  @media (max-width: 600px) {
+    max-width: 54vw;
+    width: 100%;
+    padding: 12px;
+  }
 `;
 
 // form container
@@ -310,6 +343,11 @@ const FormContainer = styled.div`
       color: #a0a0a0;
       font-size: 14px;
     }
+  }
+  @media (max-width: 600px) {
+    max-width: 60vw;
+    width: 100%;
+    padding: 12px;
   }
 `;
 

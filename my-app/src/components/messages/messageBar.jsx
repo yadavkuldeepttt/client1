@@ -31,6 +31,7 @@ const ChatBottom = styled.div`
   gap: 2rem;
   padding: 10px 25px;
   .message-bar {
+    flex-shrink: 0; 
     flex: 1;
     input {
       background: var(--message-bar-input);

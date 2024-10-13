@@ -16,6 +16,8 @@ const Main = ({ activeSection }) => {
       {activeSection === "groups" && <GroupSection />}
       {activeSection === "settings" && <SettingSection />}
       {activeSection === "home" && <Home />}
+       
+  
     </MainContent>
   );
 };
@@ -24,7 +26,6 @@ const MainContent = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-
 `;
 
 export default Main;

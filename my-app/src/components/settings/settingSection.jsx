@@ -12,6 +12,7 @@ const SettingSection = () => {
           {/* Logo */}
 
           <div
+            className="mobileResponsive"
             style={{
               display: "flex",
               justifyContent: "space-between",
@@ -66,21 +67,23 @@ const SettingSection = () => {
           <div className="dropdowns">
             <div className="dropdown">
               <span>Privacy</span>
-              <GoChevronDown className="icon"/>
+              <GoChevronDown className="icon" />
             </div>
             <div className="dropdown">
               <span>Security</span>
-              <GoChevronDown className="icon"/>
+              <GoChevronDown className="icon" />
             </div>
             <div className="dropdown">
               <span>Help</span>
-              <GoChevronDown className="icon"/>
+              <GoChevronDown className="icon" />
             </div>
           </div>
         </div>
 
         {/* chatbox */}
+        <div className="chatbox">
         <Chatbox />
+        </div>
       </Container>
     </>
   );
@@ -190,23 +193,42 @@ const Container = styled.div`
         }
       }
     }
-    .dropdowns{
+    .dropdowns {
       margin-top: 1.5rem;
-      .dropdown{
-        width:100%;
+      .dropdown {
+        width: 100%;
         border-radius: 9px;
         background: #fff;
-        padding:8px 10px;
+        padding: 8px 10px;
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 0.7rem;
-        span,.icon{
+        span,
+        .icon {
           font-size: 12px;
           font-weight: 600;
           color: #141414;
         }
       }
+    }
+  }
+
+  @media (max-width: 600px) {
+    .setting-sidebar {
+      max-width: 100vw;
+      padding: 0px 10px 10px 10px;
+      .mobileResponsive {
+        .icon {
+          display: none;
+        }
+      }
+      .maintitle {
+        display: none;
+      }
+    }
+    .chatbox{
+      display: none;
     }
   }
 `;
@@ -232,7 +254,7 @@ const Button = styled.button`
   &:active {
     transform: scale(0.98);
   }
-  &:focus{
+  &:focus {
     outline: none;
   }
 `;

@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { IoSearchOutline } from "react-icons/io5";
-import { RiFolderOpenLine } from "react-icons/ri";
-import { FaRegUser } from "react-icons/fa";
-import { IoEllipsisHorizontal } from "react-icons/io5";
-import { FiClock } from "react-icons/fi";
-import { BsEmojiSmile } from "react-icons/bs";
-import { IoIosAttach } from "react-icons/io";
-import { BsFillSendFill } from "react-icons/bs";
 import Chatbox from "../chat/chatbox";
 
 // chatData.js
@@ -30,8 +22,23 @@ const chatData = [
   },
   // Add more objects as needed
 ];
+
 const MessageSection = () => {
   const [chats, setChats] = useState([]);
+  const [activeChat, setActiveChat] = useState(0);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+     if(!isMobile){
+      setActiveChat(0);
+     }
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     // Simulate fetching data
@@ -41,45 +48,101 @@ const MessageSection = () => {
 
     fetchChats();
   }, []);
+
   return (
-    <>
-      <Container>
-        <div className="message-sidebar">
-          {/* Logo */}
+    <Container>
+      {isMobile ? (
+        activeChat !== null ? ( // Mobile view: show Chatbox if there's an active chat
+          chats.length > 0 && (
+            <Chatbox
+              chats={chats}
+              activeChat={activeChat}
+              setActiveChat={setActiveChat}
+              isMobile={isMobile}
+            />
+          )
+        ) : (
+          // Mobile view: show message sidebar if no active chat
+          <div className="message-sidebar">
+            <div className="maintitle">MESSAGES</div>
 
-          <div className="maintitle">MESSAGES</div>
-          {/* Search Bar */}
-          <div className="searchbar">
-            <input type="text" placeholder="search messages and names" />
-          </div>
+            {/* Search Bar */}
+            <div className="searchbar">
+              <input type="text" placeholder="Search messages and names" />
+            </div>
 
-          {/* Chat List */}
-          <div className="chatlist">
-            {/* Your chat items will go here */}
-            {chats.map((chat) => (
-              <div key={chat.id} className="chat-item">
-                <div className="chat-item-left">
-                  <img className="i" src={chat.avatar} alt="User Avatar" />
-                  <div className="chat-item-details">
-                    <div className="chat-item-name">{chat.name}</div>
-                    <div className="chat-item-message">
-                      {chat.message} ({chat.unreadCount})
+            {/* Chat List */}
+            <div className="chatlist">
+              {chats.map((chat, chatIndex) => (
+                <div
+                  key={chat.id}
+                  onClick={() => setActiveChat(chatIndex)}
+                  className={`chat-item ${
+                    activeChat === chatIndex ? "active" : ""
+                  }`}
+                >
+                  <div className="chat-item-left">
+                    <img className="i" src={chat.avatar} alt="User Avatar" />
+                    <div className="chat-item-details">
+                      <div className="chat-item-name">{chat.name}</div>
+                      <div className="chat-item-message">
+                        {chat.message} ({chat.unreadCount})
+                      </div>
                     </div>
                   </div>
+                  <div className="chat-item-right">
+                    <div className="chat-item-time">{chat.time}</div>
+                  </div>
                 </div>
-                <div className="chat-item-right">
-                  <div className="chat-item-message">{chat.time}</div>
-                </div>
-              </div>
-            ))}
-            {/* Add more chat items as needed */}
+              ))}
+            </div>
           </div>
-        </div>
+        )
+      ) : (
+        // Desktop view: show both message sidebar and Chatbox
+        <>
+          <div className="message-sidebar">
+            <div className="maintitle">MESSAGES</div>
 
-        {/* main content- message display */}
-        <Chatbox/>
-      </Container>
-    </>
+            {/* Search Bar */}
+            <div className="searchbar">
+              <input type="text" placeholder="Search messages and names" />
+            </div>
+
+            {/* Chat List */}
+            <div className="chatlist">
+              {chats.map((chat, chatIndex) => (
+                <div
+                  key={chat.id}
+                  onClick={() => setActiveChat(chatIndex)}
+                  className={`chat-item ${
+                    activeChat === chatIndex ? "active" : ""
+                  }`}
+                >
+                  <div className="chat-item-left">
+                    <img className="i" src={chat.avatar} alt="User Avatar" />
+                    <div className="chat-item-details">
+                      <div className="chat-item-name">{chat.name}</div>
+                      <div className="chat-item-message">
+                        {chat.message} ({chat.unreadCount})
+                      </div>
+                    </div>
+                  </div>
+                  <div className="chat-item-right">
+                    <div className="chat-item-time">{chat.time}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          {chats.length > 0 ? (
+            <Chatbox chats={chats} activeChat={activeChat} />
+          ) : (
+            <div>No chats available</div>
+          )}
+        </>
+      )}
+    </Container>
   );
 };
 
@@ -88,14 +151,16 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: row;
+
   .message-sidebar {
-    flex: 1; /* Take up one part of the container */
+    flex: 1;
     background: var(--message-sidebar);
-    padding: 20px 14px; /* Add some padding */
+    padding: 20px 14px;
     display: flex;
     max-width: 21vw;
     height: 100vh;
-    flex-direction: column; /* Arrange items vertically */
+    flex-direction: column;
+
     .maintitle {
       font-family: "Terminator";
       font-size: 16px;
@@ -105,117 +170,103 @@ const Container = styled.div`
       text-align: left;
       color: var(--button-green-color);
     }
+
     .chatlist {
-      flex: 1; /* Take up remaining space */
-      overflow-y: auto; /* Allow scrolling if content overflows */
-      margin-bottom: 20px; /* Space below chat list */
-      padding: 8px; /* Padding inside the chat list */
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 30px;
+      padding: 8px;
+      &::-webkit-scrollbar {
+        width: 5px;
+      }
+
       .chat-item {
         display: flex;
-        flex-direction: row;
         align-items: center;
         justify-content: space-between;
         margin-bottom: 1rem;
-        padding:8px 7px ;
+        padding: 8px 7px;
         border-radius: 10px;
         cursor: pointer;
+
         &:hover {
-          background: #64d895;
+          background: var(--green-color);
           color: black;
         }
+
+        &.active {
+          background-color: var(--green-color);
+          border-left: 5px solid var(--green-color);
+        }
+
         .chat-item-left {
           display: flex;
-          flex-direction: row;
           align-items: center;
           gap: 0.6rem;
+
           img {
             width: 32px;
-            margin-top: 0.25rem;
             height: 33px;
+            margin-top: 0.25rem;
           }
 
           .chat-item-name {
             font-size: 15px;
-            line-height: 28px;
             font-weight: bold;
             color: var(--chat-item-name);
           }
+
           .chat-item-message {
             font-size: 11px;
           }
         }
+
         .chat-item-right {
           font-size: 11px;
         }
       }
     }
+
     .searchbar {
       input {
         width: 100%;
         padding: 10px 12px;
-        gap: 8px;
         margin: 10px 0;
         border-radius: 7px;
-        opacity: 0px;
-        outline: none;
         border: none;
         background: #ffffff3d;
+        outline: none;
+        font-size: 11px;
+        color: #333;
       }
-      ::placeholder {
+
+      input::placeholder {
         font-size: 11px;
         letter-spacing: 0.09rem;
         font-weight: 400;
-        line-height: 24px;
-        text-align: left;
       }
     }
   }
 
-  .mainContent {
-    flex: 2; /* Take up two parts of the container */
-    display: flex;
-    flex-direction: column; /* Arrange items vertically */
-    background-color: #fff; /* White background for main content */
-    .top-header {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      background: var(--message-sidebar);
-      padding: 10px 15px;
-      border-bottom: 2px solid #384f4f;
-      border-left: 1px solid #64d895;
-      .top-header-left {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 0.6rem;
-        img {
-          width: 32px;
-          margin-top: 0.25rem;
-          height: 33px;
-        }
-        .top-header-item-name {
-          font-size: 15px;
-          line-height: 28px;
-          font-weight: bold;
-          color: var(--chat-item-name);
-        }
-        .top-header-item-message {
-          font-size: 11px;
-        }
+  @media (max-width: 600px) {
+    .message-sidebar {
+      max-width: 100vw;
+      padding: 0px 10px 10px;
+
+      .maintitle {
+        display: none;
       }
-      .top-header-right {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 1rem;
-        .icon {
-          font-size: 22px;
+
+      .chatlist {
+        padding: 0px;
+      }
+
+      .searchbar {
+        input {
+          margin-top: 0px;
         }
       }
     }
-  
   }
 `;
 

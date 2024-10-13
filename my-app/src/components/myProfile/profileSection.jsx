@@ -7,9 +7,8 @@ const ProfileSection = () => {
     <>
       <Container>
         <div className="profile-sidebar">
-          {/* Logo */}
-
           <div
+            className="mobileResponsive"
             style={{
               display: "flex",
               justifyContent: "space-between",
@@ -58,13 +57,14 @@ const ProfileSection = () => {
 
           {/* wallet button */}
           <Button>
-          <div className="button-text">Connect Wallet</div>
-
-            </Button>
+            <div className="button-text">Connect Wallet</div>
+          </Button>
         </div>
 
         {/* chatbox */}
+        <div className="chatbox">
         <Chatbox />
+        </div>
       </Container>
     </>
   );
@@ -75,14 +75,16 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: row;
+
   .profile-sidebar {
-    flex: 1; /* Take up one part of the container */
+    flex: 1;
     background: var(--message-sidebar);
-    padding: 20px; /* Add some padding */
+    padding: 20px;
     display: flex;
     max-width: 21vw;
     height: 100vh;
-    flex-direction: column; /* Arrange items vertically */
+    flex-direction: column;
+
     .maintitle {
       font-family: "Terminator";
       font-size: 16px;
@@ -92,6 +94,7 @@ const Container = styled.div`
       text-align: left;
       color: var(--button-green-color);
     }
+
     .profile-section {
       display: flex;
       flex-direction: column;
@@ -102,73 +105,105 @@ const Container = styled.div`
         display: flex;
         align-items: center;
         flex-direction: column;
+
         .profile-avatar {
           .avatar {
             width: 100px;
             height: 100px;
-            border-radius: 63;
-            margin-bottom: 10;
-            float: "right";
+            border-radius: 50%;
+            margin-bottom: 10px;
           }
         }
+
         .profile-name {
           font-size: 15px;
           line-height: 28px;
           font-weight: bold;
           color: var(--chat-item-name);
         }
+
         .profile-active-status {
           font-size: 12px;
           display: flex;
           gap: 0.3rem;
           align-items: center;
           font-weight: 500;
+
           .dot {
             width: 8px;
             height: 8px;
             background: var(--green-color);
-            border-radius: 30px;
+            border-radius: 50%;
           }
         }
       }
+
       .profile-main {
         margin: 13px 10px;
+
         .profile-about {
           display: flex;
           align-items: flex-start;
           flex-direction: column;
-          gap:0.4rem;
-          span{
+          gap: 0.4rem;
 
+          span {
             font-size: 12px;
             font-weight: 400;
             line-height: 24px;
             text-align: left;
           }
-          label{
+
+          label {
             font-size: 12px;
             font-weight: 700;
           }
         }
-        .profile-detail{
-          margin-top:1rem;
-          display :flex;
+
+        .profile-detail {
+          margin-top: 1rem;
+          display: flex;
           flex-direction: column;
-          gap:1rem;
-          .profile-detail-item{
-            display :flex;
+          gap: 1rem;
+
+          .profile-detail-item {
+            display: flex;
             flex-direction: column;
-            label{
-            font-size: 12px;
-            font-weight: 500;
-          }
-          span{
-            font-size: 13px;
-            font-weight: 600;
-          }
+
+            label {
+              font-size: 12px;
+              font-weight: 500;
+            }
+
+            span {
+              font-size: 13px;
+              font-weight: 600;
+            }
           }
         }
       }
+    }
+  }
+
+  @media (max-width: 600px) {
+    .profile-sidebar {
+      max-width: 100vw;
+      padding: 0px 10px 10px 10px;
+      .mobileResponsive {
+        .icon {
+          display: none;
+        }
+      }
+      .maintitle {
+        display: none;
+      }
+       .profile-main{
+        margin: 13px;
+       }
+      
+    }
+    .chatbox{
+      display: none;
     }
   }
 `;
@@ -182,12 +217,14 @@ const Button = styled.button`
   display: flex;
   justify-content: flex-start;
   align-self: flex-start;
+
   .button-text {
     font-weight: 700;
     font-size: 14px;
     line-height: 24px;
-    color:black;
+    color: black;
   }
+
   &:hover {
     background-color: var(--button-hover-color);
   }
@@ -195,9 +232,14 @@ const Button = styled.button`
   &:active {
     transform: scale(0.98);
   }
-  &:focus{
+
+  &:focus {
     outline: none;
   }
+  @media (max-width: 600px) {
+    margin-left:5px;
+  }
+
 `;
 
 export default ProfileSection;

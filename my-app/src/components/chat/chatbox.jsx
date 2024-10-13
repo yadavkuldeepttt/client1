@@ -1,16 +1,29 @@
-import React from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import { RiFolderOpenLine } from "react-icons/ri";
 import { FaRegUser } from "react-icons/fa";
 import { IoEllipsisHorizontal } from "react-icons/io5";
-import { FiClock } from "react-icons/fi";
-
 import styled from "styled-components";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
-
 import MessageBar from "../messages/messageBar";
+import { IoMdArrowBack } from "react-icons/io";
 
-const Chatbox = () => {
+const Chatbox = ({ chats, activeChat, isMobile,setActiveChat }) => {
+  console.log(activeChat,'activechat');
+  
+  console.log(
+    chats?.length ? chats : "Groups is undefined at initial render",
+    "chats data"
+  );
+
+  const currentChat = chats?.[activeChat] || null;
+
+  console.log(JSON.stringify(currentChat),"current  chat");
+  
+
+  if (!currentChat) {
+    return <div>Select a chat to start chatting</div>;
+  }
+
   return (
     <>
       <MainContent>
@@ -18,10 +31,22 @@ const Chatbox = () => {
         <div className="top-header">
           {/* top header left */}
           <div className="top-header-left">
+            {isMobile && (
+              <GoBackMobileIcon   onClick={()=>setActiveChat(null)}>
+                <IoMdArrowBack
+                  className="icon"
+                
+                />
+              </GoBackMobileIcon>
+            )}
             <img className="i" src="/assets/Layer_1.png" alt="User Avatar" />
             <div className="top-header-item-details">
-              <div className="top-header-item-name">John</div>
-              <div className="top-header-item-message">12w982s23u29jn2j32</div>
+              <div className="top-header-item-name">{currentChat.name}</div>
+              {!isMobile && (
+                <div className="top-header-item-message">
+                  12w982s23u29jn2j32
+                </div>
+              )}
             </div>
           </div>
           {/* top header right */}
@@ -51,7 +76,7 @@ const Chatbox = () => {
             <div className="outgoing">
               <div className="outgoing-message">Yes, this is so cool!</div>
               <div className="outgoing-message-time">
-              <IoCheckmarkDoneOutline className="icon" />
+                <IoCheckmarkDoneOutline className="icon" />
                 <span>10:00 PM</span>
               </div>
             </div>
@@ -60,7 +85,7 @@ const Chatbox = () => {
         </div>
 
         {/* chat bottom */}
-     <MessageBar/>
+        <MessageBar />
       </MainContent>
     </>
   );
@@ -69,6 +94,7 @@ const Chatbox = () => {
 const MainContent = styled.div`
   flex: 2; /* Take up two parts of the container */
   display: flex;
+  height: 100vh;
   flex-direction: column; /* Arrange items vertically */
   background-color: #fff; /* White background for main content */
   border-left: 1px solid #64d895;
@@ -109,17 +135,16 @@ const MainContent = styled.div`
       .icon {
         font-size: 22px;
         cursor: pointer;
-        &:hover{
-          color:var(--icon-hover-color);
+        &:hover {
+          color: var(--icon-hover-color);
         }
       }
     }
   }
   .chatting-box {
-    height: 100%;
-    max-height: 80vh;
     display: flex;
-    padding-bottom: 3rem!important;
+    flex: 1;
+    padding-bottom: 3rem !important;
     padding: 20px;
     overflow: auto;
     flex-direction: column;
@@ -130,14 +155,12 @@ const MainContent = styled.div`
       var(--gradient-home1) 40%,
       var(--gradient-home3)
     );
-    &::-webkit-scrollbar{
+    &::-webkit-scrollbar {
       width: 5px;
     }
 
-
     .incoming {
-      width: 100%;
-      max-width: 715px;
+      max-width: 70%;
       padding: 15px 20px;
       border-radius: 17px;
       background: #45b57f;
@@ -174,8 +197,7 @@ const MainContent = styled.div`
     }
 
     .outgoing {
-      width: 100%;
-      max-width: 184px;
+      max-width: 50%;
       height: auto;
       padding: 15px 20px;
       border-radius: 17px;
@@ -204,9 +226,9 @@ const MainContent = styled.div`
         gap: 0.2rem;
         align-items: center;
         font-size: 12px;
-        .icon{
+        .icon {
           font-weight: bold;
-          color:var(--home-main-color);
+          color: var(--home-main-color);
         }
       }
     }
@@ -217,6 +239,41 @@ const MainContent = styled.div`
     }
   }
 
+  @media (max-width: 600px) {
+    .top-header {
+      .top-header-left {
+        img {
+          width: 30px;
+          height: 30px;
+        }
+      }
+      .top-header-right {
+        .icon {
+          font-size: 17px;
+        }
+      }
+    }
+  }
+`;
+
+const GoBackMobileIcon = styled.div`
+  display: none; /* Hide by default */
+
+  /* Show only on mobile screens */
+  @media (max-width: 768px) {
+    display: flex; /* Show back icon */
+    align-items: center;
+
+    .icon {
+      color: var(--text-color);
+      font-size: 18px;
+      cursor: pointer;
+
+      &:hover {
+        color: var(--button-hover-color);
+      }
+    }
+  }
 `;
 
 export default Chatbox;

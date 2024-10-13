@@ -2,8 +2,7 @@ import { BsBrightnessHigh } from "react-icons/bs";
 import styled from "styled-components";
 import { IoMdArrowBack } from "react-icons/io";
 
-
-const Register = ({setActiveSection}) => {
+const Register = ({ setActiveSection }) => {
   const toggleTheme = () => {
     document.body.classList.toggle("dark-mode");
   };
@@ -24,7 +23,7 @@ const Register = ({setActiveSection}) => {
         </div>
         <div className="chain-register-title">Register</div>
         <div className="chain-welcome-text">
-          Welcome to the first onchain decentralized chat app.
+          <p>Welcome to the first onchain decentralized chat app.</p>
         </div>
         <div className="chain-card">
           <div className="chain-sub-card">
@@ -55,7 +54,7 @@ const Register = ({setActiveSection}) => {
       </NavItem>
       {/* go back button */}
       <GoBack onClick={handleGoBack}>
-      <IoMdArrowBack />
+        <IoMdArrowBack />
       </GoBack>
     </Container>
   );
@@ -64,6 +63,7 @@ const Register = ({setActiveSection}) => {
 // Styled Components
 const Container = styled.div`
   display: flex;
+  overflow: hidden;
   justify-content: center;
   flex-direction: column;
   align-items: center;
@@ -135,6 +135,34 @@ const Container = styled.div`
 
     .chainchat {
       color: var(--text-color);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .chain {
+      .chain-header {
+        margin-bottom: 15px;
+        .chain-image {
+          width: 40px;
+          height: 42px;
+          margin-right: 10px;
+        }
+        .chain-title {
+          font-size: 21px;
+        }
+        .chain-welcome-text {
+          font-size: 12px;
+        }
+      }
+      .chain-card {
+        .chain-sub-card {
+          padding: 2.5rem 0;
+        }
+        .text-style {
+          display: flex;
+          flex-direction: column;
+        }
+      }
     }
   }
 `;
@@ -212,6 +240,17 @@ const Button = styled.button`
   }
   &:focus {
     outline: none;
+  }
+  /* Responsive styles */
+  /* @media (max-width: 768px) {
+    max-width: 20vw;
+    padding: 14px;
+  } */
+
+  @media (max-width: 600px) {
+    max-width: 56vw;
+    width: 100%;
+    padding: 12px;
   }
 `;
 

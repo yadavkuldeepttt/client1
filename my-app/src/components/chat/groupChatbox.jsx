@@ -7,8 +7,9 @@ import { IoEllipsisHorizontal } from "react-icons/io5";
 import styled from "styled-components";
 import MessageBar from "../messages/messageBar";
 import ImageMessage from "./imageMessage";
+import { IoMdArrowBack } from "react-icons/io";
 
-const GroupChatbox = ({ groups, activeGroup }) => {
+const GroupChatbox = ({ groups, activeGroup,isMobile,setActiveGroup }) => {
   console.log(
     groups?.length ? groups : "Groups is undefined at initial render",
     "groups data"
@@ -33,6 +34,14 @@ const GroupChatbox = ({ groups, activeGroup }) => {
         <div className="top-header">
           {/* top header left */}
           <div className="top-header-left">
+          {isMobile && (
+              <GoBackMobileIcon   onClick={()=>setActiveGroup(null)}>
+                <IoMdArrowBack
+                  className="icon"
+                
+                />
+              </GoBackMobileIcon>
+            )}
             <img className="i" src="/assets/Layer_1.png" alt="User Avatar" />
             <div className="top-header-item-details">
               <div className="top-header-item-name">
@@ -111,6 +120,7 @@ const GroupChatbox = ({ groups, activeGroup }) => {
 const MainContent = styled.div`
   flex: 2; /* Take up two parts of the container */
   display: flex;
+  height: 100vh;
   flex-direction: column; /* Arrange items vertically */
   background-color: #fff; /* White background for main content */
   border-left: 1px solid #64d895;
@@ -157,8 +167,7 @@ const MainContent = styled.div`
     }
   }
   .chatting-box {
-    height: 100%;
-    max-height: 78vh;
+    flex: 1;
     overflow: auto;
     padding-bottom: 3rem !important;
     display: flex;
@@ -174,9 +183,8 @@ const MainContent = styled.div`
     &::-webkit-scrollbar {
       width: 5px;
     }
-
     .incoming {
-      max-width: 715px;
+      max-width: 70%;
       padding: 10px 20px;
       border-radius: 17px;
       background: #45b57f;
@@ -228,7 +236,7 @@ const MainContent = styled.div`
       left: 0;
     }
     .outgoing {
-      max-width: 400px;
+      max-width: 70%;
       height: auto;
       padding: 15px 20px;
       border-radius: 17px;
@@ -274,6 +282,51 @@ const MainContent = styled.div`
       right: 16px;
     }
   }
+
+  @media (max-width: 600px) {
+    .top-header {
+      .top-header-left {
+        img {
+          width: 30px;
+          height: 30px;
+        }
+      }
+      .top-header-right {
+        .icon {
+          font-size: 17px;
+        }
+      }
+    }
+    .chatting-box{
+      .incoming{
+        margin-bottom: 0.7rem;
+      }
+      .outgoing{
+        margin-bottom: 0.7rem;
+      }
+    }
+  }
+
 `;
 
+
+const GoBackMobileIcon = styled.div`
+  display: none; /* Hide by default */
+
+  /* Show only on mobile screens */
+  @media (max-width: 768px) {
+    display: flex; /* Show back icon */
+    align-items: center;
+
+    .icon {
+      color: var(--text-color);
+      font-size: 18px;
+      cursor: pointer;
+
+      &:hover {
+        color: var(--button-hover-color);
+      }
+    }
+  }
+`;
 export default GroupChatbox;

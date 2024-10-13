@@ -37,14 +37,18 @@ const ContactSection = () => {
         <div className="contact-sidebar">
           {/* Logo */}
           <div
+            className="mobileResponsive"
             style={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
             }}
           >
-          <div className="maintitle">CONTACTS</div>
-          <CgUserList   style={{ fontSize: "20px", color: "#64d895" }}/>
+            <div className="maintitle">CONTACTS</div>
+            <CgUserList
+              className="icon"
+              style={{ fontSize: "20px", color: "#64d895" }}
+            />
           </div>
           {/* Search Bar */}
           <div className="searchbar">
@@ -54,28 +58,33 @@ const ContactSection = () => {
           {/* Chat List */}
           <div className="contacts-list">
             {/* Your contact items will go here */}
-            {contacts.map(contact => (
-        <div key={contact.id} className="contact-item">
-          <div className="contact-item-left">
-            <div className="contact-item-details">
-            <div className="contact-item-name-abbr">{contact.name.split(" ")[0].charAt(0)}</div>
-              <div className="contact-item-name">{contact.name}</div>
-              <div className="contact-item-message">{contact.message}</div>
-            </div>
-          </div>
-          <div className="contact-item-right">
-            <RiFolderOpenLine className="icon" />
-            <FaEllipsisVertical className="icon" />
-          </div>
-        </div>
-      ))}
-        
+            {contacts.map((contact) => (
+              <div key={contact.id} className="contact-item">
+                <div className="contact-item-left">
+                  <div className="contact-item-details">
+                    <div className="contact-item-name-abbr">
+                      {contact.name.split(" ")[0].charAt(0)}
+                    </div>
+                    <div className="contact-item-name">{contact.name}</div>
+                    <div className="contact-item-message">
+                      {contact.message}
+                    </div>
+                  </div>
+                </div>
+                <div className="contact-item-right">
+                  <RiFolderOpenLine className="icon" />
+                  <FaEllipsisVertical className="icon" />
+                </div>
+              </div>
+            ))}
+
             {/* Add more contact items as needed */}
           </div>
         </div>
 
-        {/* chatbox */}
-        <Chatbox />
+        <div className="chatbox">
+          <Chatbox />
+        </div>
       </Container>
     </>
   );
@@ -133,9 +142,9 @@ const Container = styled.div`
             font-weight: bold;
             color: var(--contact-item-name);
           }
-          .contact-item-name-abbr{
-            color: #64D895;
-             font-weight: 700;
+          .contact-item-name-abbr {
+            color: #64d895;
+            font-weight: 700;
           }
           .contact-item-message {
             font-size: 11px;
@@ -143,39 +152,67 @@ const Container = styled.div`
         }
         .contact-item-right {
           display: flex;
-          gap:0.6rem;
+          gap: 0.6rem;
           font-size: 16px;
-          .icon{
+          .icon {
             cursor: pointer;
-            &:hover{
-              color:var(--icon-hover-color);
+            &:hover {
+              color: var(--icon-hover-color);
             }
-          }
           }
         }
       }
     }
-    .searchbar {
-      input {
-        width: 100%;
-        padding: 10px 12px;
-        gap: 8px;
-        margin: 10px 0;
-        border-radius: 7px;
-        opacity: 0px;
-        outline: none;
-        border: none;
-        background: #ffffff3d;
+  }
+  .searchbar {
+    input {
+      width: 100%;
+      padding: 10px 12px;
+      gap: 8px;
+      margin: 10px 0;
+      border-radius: 7px;
+      opacity: 0px;
+      outline: none;
+      border: none;
+      background: #ffffff3d;
+    }
+    ::placeholder {
+      font-size: 11px;
+      letter-spacing: 0.09rem;
+      font-weight: 400;
+      line-height: 24px;
+      text-align: left;
+    }
+  }
+
+  @media (max-width: 600px) {
+
+
+    .contact-sidebar {
+      max-width: 100vw;
+      padding: 0px 10px 10px 10px;
+      .mobileResponsive {
+        .icon {
+          display: none;
+        }
       }
-      ::placeholder {
-        font-size: 11px;
-        letter-spacing: 0.09rem;
-        font-weight: 400;
-        line-height: 24px;
-        text-align: left;
+      .maintitle {
+        display: none;
+      }
+      .contacts-list {
+        padding: 2px;
+      }
+      .searchbar {
+        padding-top: 0px;
+        input {
+          margin-top: 0px;
+        }
       }
     }
-  
+    .chatbox{
+      display: none;
+    }
+  }
 `;
 
 export default ContactSection;
