@@ -349,10 +349,13 @@ const FormContainer = styled.div`
       font-size: 14px;
     }
   }
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     max-width: 60vw;
     width: 100%;
     padding: 12px;
+      .icon-div {
+        left: 1.2px;
+    }
   }
 `;
 

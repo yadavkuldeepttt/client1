@@ -188,6 +188,7 @@ const MainContent = styled.div`
         align-items: center;
         font-size: 12px;
       }
+
     }
     .incoming-vector {
       position: absolute;
