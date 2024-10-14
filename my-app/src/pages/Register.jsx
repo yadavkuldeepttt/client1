@@ -1,14 +1,17 @@
 import { BsBrightnessHigh } from "react-icons/bs";
 import styled from "styled-components";
 import { IoMdArrowBack } from "react-icons/io";
+import { useSection } from "../components/context/sectionContext";
 
-const Register = ({ setActiveSection }) => {
+const Register = () => {
+
+  const { setActiveSection } = useSection();
   const toggleTheme = () => {
     document.body.classList.toggle("dark-mode");
   };
 
   const handleGoBack = () => {
-    setActiveSection("myProfile");
+    setActiveSection("messages");
   };
   return (
     <Container>
@@ -79,6 +82,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     .chain-header {
       display: flex; // Use flexbox to align items
       align-items: center; // Center items vertically
@@ -119,6 +123,9 @@ const Container = styled.div`
       width: 100%;
       max-width: 550px;
       border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       .chain-sub-card {
         background: var(--message-sidebar);
         width: 550px;
@@ -138,8 +145,9 @@ const Container = styled.div`
     }
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     .chain {
+      padding: 0px 20px;
       .chain-header {
         margin-bottom: 15px;
         .chain-image {
@@ -152,11 +160,13 @@ const Container = styled.div`
         }
         .chain-welcome-text {
           font-size: 12px;
+
         }
       }
       .chain-card {
         .chain-sub-card {
           padding: 2.5rem 0;
+          width:80vw;
         }
         .text-style {
           display: flex;

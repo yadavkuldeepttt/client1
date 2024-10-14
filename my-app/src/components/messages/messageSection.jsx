@@ -1,67 +1,21 @@
-import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Chatbox from "../chat/chatbox";
-
-// chatData.js
-const chatData = [
-  {
-    id: 1,
-    name: "John",
-    message: "Hey! How are you?",
-    avatar: "/assets/Layer_1.png",
-    time: "12min",
-    unreadCount: 2,
-  },
-  {
-    id: 2,
-    name: "Designer",
-    message: "Yes, this is so cool!",
-    avatar: "/assets/Layer_1.png",
-    time: "12min",
-    unreadCount: 2,
-  },
-  // Add more objects as needed
-];
+import { useChat } from "../context/chatContext";
+import Chatbox from "./chatbox";
 
 const MessageSection = () => {
-  const [chats, setChats] = useState([]);
-  const [activeChat, setActiveChat] = useState(0);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-
-  useEffect(() => {
-     if(!isMobile){
-      setActiveChat(0);
-     }
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
-    // Simulate fetching data
-    const fetchChats = () => {
-      setChats(chatData);
-    };
-
-    fetchChats();
-  }, []);
+  const {
+    chats,
+    activeChat,
+    activeChatMobile,
+    setActiveChat,
+    setActiveChatMobile,
+    isMobile,
+  } = useChat();
 
   return (
     <Container>
       {isMobile ? (
-        activeChat !== null ? ( // Mobile view: show Chatbox if there's an active chat
-          chats.length > 0 && (
-            <Chatbox
-              chats={chats}
-              activeChat={activeChat}
-              setActiveChat={setActiveChat}
-              isMobile={isMobile}
-            />
-          )
-        ) : (
+        activeChatMobile === null ? ( // Mobile view: show Chatbox if there's an active chat
           // Mobile view: show message sidebar if no active chat
           <div className="message-sidebar">
             <div className="maintitle">MESSAGES</div>
@@ -76,9 +30,9 @@ const MessageSection = () => {
               {chats.map((chat, chatIndex) => (
                 <div
                   key={chat.id}
-                  onClick={() => setActiveChat(chatIndex)}
+                  onClick={() => setActiveChatMobile(chatIndex)}
                   className={`chat-item ${
-                    activeChat === chatIndex ? "active" : ""
+                    activeChatMobile === chatIndex ? "active" : ""
                   }`}
                 >
                   <div className="chat-item-left">
@@ -97,6 +51,15 @@ const MessageSection = () => {
               ))}
             </div>
           </div>
+        ) : (
+          chats.length > 0 && (
+            <Chatbox
+              chats={chats}
+              activeChatMobile={activeChatMobile}
+              setActiveChatMobile={setActiveChatMobile}
+              isMobile={isMobile}
+            />
+          )
         )
       ) : (
         // Desktop view: show both message sidebar and Chatbox
@@ -188,15 +151,14 @@ const Container = styled.div`
         padding: 8px 7px;
         border-radius: 10px;
         cursor: pointer;
+        transition: background 0.5s ease-in-out;
 
         &:hover {
           background: var(--green-color);
-          color: black;
         }
 
         &.active {
           background-color: var(--green-color);
-          border-left: 5px solid var(--green-color);
         }
 
         .chat-item-left {
@@ -248,11 +210,16 @@ const Container = styled.div`
     }
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     .message-sidebar {
       max-width: 100vw;
       padding: 0px 10px 10px;
-
+      background: linear-gradient(
+        to right bottom,
+        var(--gradient-home2) 31%,
+        var(--gradient-home1),
+        var(--gradient-home3)
+      );
       .maintitle {
         display: none;
       }
@@ -263,6 +230,7 @@ const Container = styled.div`
 
       .searchbar {
         input {
+          background: var(--message-sidebar);
           margin-top: 0px;
         }
       }

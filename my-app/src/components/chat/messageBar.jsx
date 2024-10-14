@@ -10,11 +10,12 @@ const MessageBar = () => {
     <>
       <ChatBottom>
         <div className="message-bar">
-          <input type="text" placeholder="Type Message" />
+          {/* <input type="text" placeholder="Type Message" /> */}
+          <textarea placeholder="Type Message" rows="1" />
         </div>
         <div className="icons">
-          <BsEmojiSmile className="icon"/>
-          <IoIosAttach className="icon"/>
+          <BsEmojiSmile className="icon" />
+          <IoIosAttach className="icon" />
           <div className="send-icon">
             <BsFillSendFill className="icon2" />
           </div>
@@ -29,11 +30,12 @@ const ChatBottom = styled.div`
   display: flex;
   align-items: center;
   gap: 2rem;
-  padding: 10px 25px;
+  margin: 0;
+  padding: 10px 25px 8px 25px;
   .message-bar {
-    flex-shrink: 0; 
+    flex-shrink: 0;
     flex: 1;
-    input {
+    textarea {
       background: var(--message-bar-input);
       padding: 10px 12px;
       gap: 8px;
@@ -43,6 +45,9 @@ const ChatBottom = styled.div`
       outline: none;
       width: 100%;
       border: none;
+      color: var(--text-color);
+      overflow:hidden;  
+      resize: none;
     }
   }
   .icons {

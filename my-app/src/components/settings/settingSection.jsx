@@ -1,24 +1,19 @@
 import styled from "styled-components";
-import Chatbox from "../chat/chatbox";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import { GrFormEdit } from "react-icons/gr";
 import { GoChevronDown } from "react-icons/go";
+import { useChat } from "../context/chatContext";
+import Chatbox from "../messages/chatbox";
+import GoBackMobileIcon from "../responsive/goBackMobileIcon";
 
 const SettingSection = () => {
+  const { chats, activeChat, isMobile } = useChat();
   return (
     <>
       <Container>
         <div className="setting-sidebar">
-          {/* Logo */}
-
-          <div
-            className="mobileResponsive"
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
+          <div className="topHeader">
+            {isMobile && <GoBackMobileIcon />}
             <div className="maintitle">SETTINGS</div>
             <FaEllipsisVertical className="icon" />
           </div>
@@ -81,9 +76,8 @@ const SettingSection = () => {
         </div>
 
         {/* chatbox */}
-        <div className="chatbox">
-        <Chatbox />
-        </div>
+        {/* chatbox */}
+        {!isMobile && <Chatbox chats={chats} activeChat={activeChat} />}
       </Container>
     </>
   );
@@ -102,6 +96,11 @@ const Container = styled.div`
     max-width: 21vw;
     height: 100vh;
     flex-direction: column; /* Arrange items vertically */
+    .topHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
     .maintitle {
       font-family: "Terminator";
       font-size: 16px;
@@ -214,21 +213,20 @@ const Container = styled.div`
     }
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     .setting-sidebar {
+      background: var(--background-color);
       max-width: 100vw;
       padding: 0px 10px 10px 10px;
-      .mobileResponsive {
-        .icon {
-          display: none;
+      .topheader {
+        margin-top: 0.3rem ;
+      }
+      .dropdowns {
+        .dropdown{
+          background:#f0f0f0;
         }
       }
-      .maintitle {
-        display: none;
-      }
-    }
-    .chatbox{
-      display: none;
+    
     }
   }
 `;

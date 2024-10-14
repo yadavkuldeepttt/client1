@@ -6,8 +6,12 @@ import ProfileSection from "../components/myProfile/profileSection";
 import GroupSection from "../components/groups/groupSection";
 import Home from "./home";
 import SettingSection from "../components/settings/settingSection";
+import { useSection } from "../components/context/sectionContext";
 
-const Main = ({ activeSection }) => {
+const Main = () => {
+  
+  const { activeSection } = useSection();
+
   return (
     <MainContent>
       {activeSection === "messages" && <MessageSection />}

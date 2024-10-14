@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { CgUserList } from "react-icons/cg";
+import { useSection } from "../context/sectionContext";
 
-function ContactFloatingIcon({setActiveSection}) {
-  
+function ContactFloatingIcon() {
+  const { setActiveSection } = useSection();
   const handleNavClick = (section) => {
     setActiveSection(section);
   };

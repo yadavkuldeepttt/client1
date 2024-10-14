@@ -1,14 +1,15 @@
 import { BsBrightnessHigh } from "react-icons/bs";
 import { IoMdArrowBack } from "react-icons/io";
 import styled from "styled-components";
+import { useSection } from "../components/context/sectionContext";
 
-const Login = ({ setActiveSection }) => {
+const Login = () => {
+  const { activeSection, setActiveSection } = useSection();
+
   const toggleTheme = () => {
     document.body.classList.toggle("dark-mode");
   };
-  const handleGoBack = () => {
-    setActiveSection("myProfile");
-  };
+
   return (
     <Container>
       <div className="chain">
@@ -85,7 +86,7 @@ const Login = ({ setActiveSection }) => {
         <BsBrightnessHigh className="icon" />
       </NavItem>
       {/*go back button  */}
-      <GoBack onClick={handleGoBack}>
+      <GoBack onClick={() => setActiveSection("messages")}>
         <IoMdArrowBack />
       </GoBack>
     </Container>
@@ -152,6 +153,9 @@ const Container = styled.div`
       width: 100%;
       max-width: 550px;
       border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       .chain-sub-card {
         background: var(--message-sidebar);
         width: 550px;
@@ -173,7 +177,7 @@ const Container = styled.div`
       color: var(--text-color);
     }
   }
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     .chain {
       .chain-header {
         margin-bottom: 15px;
@@ -191,9 +195,10 @@ const Container = styled.div`
       }
       .chain-card {
         .chain-sub-card {
+          width: 80vw;
           padding: 2.5rem 0;
         }
-        .text-style{
+        .text-style {
           display: flex;
           flex-direction: column;
         }

@@ -1,20 +1,20 @@
 import styled from "styled-components";
-import Chatbox from "../chat/chatbox";
 import { FaEllipsisVertical } from "react-icons/fa6";
+import { useChat } from "../context/chatContext";
+import Chatbox from "../messages/chatbox";
+import GoBackMobileIcon from "../responsive/goBackMobileIcon";
 
 const ProfileSection = () => {
+  const { chats, activeChat, isMobile } =
+  useChat();
+
   return (
     <>
       <Container>
         <div className="profile-sidebar">
-          <div
-            className="mobileResponsive"
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
+       
+          <div className="topHeader">
+            {isMobile && <GoBackMobileIcon />}
             <div className="maintitle">MY PROFILE</div>
             <FaEllipsisVertical className="icon" />
           </div>
@@ -62,9 +62,7 @@ const ProfileSection = () => {
         </div>
 
         {/* chatbox */}
-        <div className="chatbox">
-        <Chatbox />
-        </div>
+       {!isMobile && (<Chatbox chats={chats} activeChat={activeChat}/>)}
       </Container>
     </>
   );
@@ -84,7 +82,11 @@ const Container = styled.div`
     max-width: 21vw;
     height: 100vh;
     flex-direction: column;
-
+    .topHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
     .maintitle {
       font-family: "Terminator";
       font-size: 16px;
@@ -189,22 +191,17 @@ const Container = styled.div`
     .profile-sidebar {
       max-width: 100vw;
       padding: 0px 10px 10px 10px;
-      .mobileResponsive {
-        .icon {
-          display: none;
-        }
-      }
-      .maintitle {
-        display: none;
-      }
+      
        .profile-main{
         margin: 13px;
        }
+       .topHeader{
+        margin-top: 0.3rem;
+       }
       
     }
-    .chatbox{
-      display: none;
-    }
+    
+  
   }
 `;
 

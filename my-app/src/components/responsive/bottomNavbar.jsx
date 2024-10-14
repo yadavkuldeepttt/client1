@@ -1,42 +1,39 @@
 import styled from "styled-components";
 import { FaRegUser } from "react-icons/fa";
 import { FiUsers } from "react-icons/fi";
-import { GoGear } from "react-icons/go";
 import { CiGlobe } from "react-icons/ci";
 import { AiOutlineMessage } from "react-icons/ai";
+import { useSection } from "../context/sectionContext";
 
-function BottomNavbar({ activeSection, setActiveSection }) {
-  const handleNavClick = (section) => {
-    setActiveSection(section);
-  };
+function BottomNavbar() {
+  const { activeSection, setActiveSection } = useSection();
   return (
     <Container>
-      {activeSection === "groups" ? (
-        <NavItem
-          active={activeSection === "messages"}
-          onClick={() => handleNavClick("messages")}
-        >
-          <AiOutlineMessage className="icon" />
-          <span>Chats</span>
-        </NavItem>
-      ) : (
-        <NavItem
-          active={activeSection === "groups"}
-          onClick={() => handleNavClick("groups")}
-        >
-          <FiUsers className="icon" />
-          <span>Groups</span>
-        </NavItem>
-      )}
+      <NavItem
+        active={activeSection === "messages"}
+        onClick={() => setActiveSection("messages")}
+      >
+        <AiOutlineMessage className="icon" />
+        <span>Chats</span>
+      </NavItem>
+      <NavItem
+        active={activeSection === "groups"}
+        onClick={() => setActiveSection("groups")}
+      >
+        <FiUsers className="icon" />
+        <span>Groups</span>
+      </NavItem>
       <NavItem
         active={activeSection === "myProfile"}
-        onClick={() => handleNavClick("myProfile")}
+        onClick={() => setActiveSection("myProfile")}
       >
         <FaRegUser className="icon" />
         <span>Profile</span>
       </NavItem>
-      <NavItem      active={activeSection === "register"}
-        onClick={() => handleNavClick("register")}>
+      <NavItem
+        active={activeSection === "register"}
+        onClick={() => setActiveSection("register")}
+      >
         <CiGlobe className="icon" />
         <span>Updates</span>
       </NavItem>
@@ -44,13 +41,13 @@ function BottomNavbar({ activeSection, setActiveSection }) {
         <CgUserList className="icon" />
         <span>Contacts</span>
       </NavItem> */}
-      <NavItem
+      {/* <NavItem
         active={activeSection === "settings"}
         onClick={() => handleNavClick("settings")}
       >
         <GoGear className="icon" />
         <span>Settings</span>
-      </NavItem>
+      </NavItem> */}
     </Container>
   );
 }

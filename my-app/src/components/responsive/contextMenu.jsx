@@ -23,7 +23,7 @@ const ContextMenu = ({ options, onClose }) => {
 // Styled Components
 const MenuContainer = styled.div`
   position: fixed;
-  top: 5%;
+  top: 6%;
   right: 25px;
   width: 150px;
   background: var(--background-color);

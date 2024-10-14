@@ -1,31 +1,27 @@
-import React from "react";
-import { IoCheckmarkDoneOutline, IoSearchOutline } from "react-icons/io5";
+import { IoSearchOutline } from "react-icons/io5";
 import { RiFolderOpenLine } from "react-icons/ri";
-import { FaRegUser, FaUserCircle } from "react-icons/fa";
+import { FaRegUser } from "react-icons/fa";
 import { IoEllipsisHorizontal } from "react-icons/io5";
-
 import styled from "styled-components";
-import MessageBar from "../messages/messageBar";
-import ImageMessage from "./imageMessage";
+import { IoCheckmarkDoneOutline } from "react-icons/io5";
+import MessageBar from "../chat/messageBar";
 import { IoMdArrowBack } from "react-icons/io";
 
-const GroupChatbox = ({ groups, activeGroup,isMobile,setActiveGroup }) => {
+const Chatbox = ({ chats, activeChat, isMobile,activeChatMobile,setActiveChatMobile }) => {
+  
+  console.log(activeChatMobile,"active chat mobile");
+  console.log(activeChat,"active chat");
+  
+  
   console.log(
-    groups?.length ? groups : "Groups is undefined at initial render",
-    "groups data"
+    chats?.length ? chats : "Groups is undefined at initial render",
+    "chats data"
   );
 
-  const currentGroup = groups?.[activeGroup] || null;
+  const currentChat = chats?.[activeChat] || null;
+  const currentChatMobile = chats?.[activeChatMobile] || null;
+  
 
-  if (!currentGroup) {
-    return <div>Select a group to start chatting</div>;
-  }
-
-  // Calculate total members and the count of online members
-  const totalMembers = currentGroup.contacts.length;
-  const onlineMembers = currentGroup.contacts.filter(
-    (contact) => contact.status === "online"
-  ).length;
 
   return (
     <>
@@ -34,8 +30,8 @@ const GroupChatbox = ({ groups, activeGroup,isMobile,setActiveGroup }) => {
         <div className="top-header">
           {/* top header left */}
           <div className="top-header-left">
-          {isMobile && (
-              <GoBackMobileIcon   onClick={()=>setActiveGroup(null)}>
+            {isMobile && (
+              <GoBackMobileIcon   onClick={()=>setActiveChatMobile(null)}>
                 <IoMdArrowBack
                   className="icon"
                 
@@ -44,12 +40,12 @@ const GroupChatbox = ({ groups, activeGroup,isMobile,setActiveGroup }) => {
             )}
             <img className="i" src="/assets/Layer_1.png" alt="User Avatar" />
             <div className="top-header-item-details">
-              <div className="top-header-item-name">
-                {currentGroup.groupName || "Group"}
-              </div>
-              <div className="top-header-item-message">
-                {totalMembers} members, {onlineMembers} online
-              </div>
+              <div className="top-header-item-name">{isMobile ? currentChatMobile.name : currentChat.name}</div>
+              {!isMobile && (
+                <div className="top-header-item-message">
+                  12w982s23u29jn2j32
+                </div>
+              )}
             </div>
           </div>
           {/* top header right */}
@@ -60,54 +56,31 @@ const GroupChatbox = ({ groups, activeGroup,isMobile,setActiveGroup }) => {
             <IoEllipsisHorizontal className="icon" />
           </div>
         </div>
-        {/* Chatting Box */}
+        {/* chatting box */}
         <div className="chatting-box">
-          {currentGroup.contacts.map((contact, index) => (
-            <div style={{ position: "relative" }} key={contact.id}>
-              {index % 2 === 0 ? (
-                // Incoming message style
-                <div className="incoming">
-                  <div className="incoming-user">
-                    <FaUserCircle className="icon" />
-                    <span>{contact.name}</span>
-                  </div>
-
-                  <div className="incoming-message">{contact.message}</div>
-                  <div className="incoming-message-time">
-                    <span>10:00 PM</span>
-                  </div>
-                  <img src="/assets/Vector 8.png" className="incoming-vector" />
-                </div>
-              ) : (
-                // Outgoing message style
-                <div className="outgoing">
-                  {contact.imageMessage ? (
-                    // Render the ImageMessage component if imageMessage exists
-                    <ImageMessage
-                      src={contact.imageMessage}
-                      alt="Image Message"
-                    />
-                  ) : (
-                    ""
-                  )}
-                  <div className="outgoing-message">{contact.message}</div>
-                  <div className="outgoing-message-time">
-                    <IoCheckmarkDoneOutline className="icon" />
-
-                    <span>10:00 PM</span>
-                  </div>
-                  <img
-                    src="/assets/Vector 9.png"
-                    className={`${
-                      contact.imageMessage
-                        ? "outgoing-vector-image"
-                        : "outgoing-vector"
-                    }`}
-                  />
-                </div>
-              )}
+          <div style={{ position: "relative" }}>
+            <div className="incoming">
+              <div className="incoming-message">
+                Can you believe it?? We are chatting with encrypted messages
+                based on blockchain technology. No one has access to our
+                messages except me and you!!
+              </div>
+              <div className="incoming-message-time">
+                <span>10:00 PM</span>
+              </div>
             </div>
-          ))}
+            <img src="/assets/Vector 8.png" className="incoming-vector" />
+          </div>
+          <div style={{ position: "relative" }}>
+            <div className="outgoing">
+              <div className="outgoing-message">Yes, this is so cool!</div>
+              <div className="outgoing-message-time">
+                <IoCheckmarkDoneOutline className="icon" />
+                <span>10:00 PM</span>
+              </div>
+            </div>
+            <img src="/assets/Vector 9.png" className="outgoing-vector" />
+          </div>
         </div>
 
         {/* chat bottom */}
@@ -132,6 +105,7 @@ const MainContent = styled.div`
     background: var(--message-sidebar);
     padding: 10px 15px;
     border-bottom: 2px solid #384f4f63;
+
     .top-header-left {
       display: flex;
       flex-direction: row;
@@ -167,13 +141,13 @@ const MainContent = styled.div`
     }
   }
   .chatting-box {
-    flex: 1;
-    overflow: auto;
-    padding-bottom: 3rem !important;
     display: flex;
+    flex: 1;
+    padding-bottom: 3rem !important;
     padding: 20px;
-    padding-right: 0;
+    overflow: auto;
     flex-direction: column;
+    padding-right: 0;
     background: linear-gradient(
       to right bottom,
       var(--gradient-home2) 31%,
@@ -183,9 +157,10 @@ const MainContent = styled.div`
     &::-webkit-scrollbar {
       width: 5px;
     }
+
     .incoming {
       max-width: 70%;
-      padding: 10px 20px;
+      padding: 15px 20px;
       border-radius: 17px;
       background: #45b57f;
       color: #fff;
@@ -198,71 +173,56 @@ const MainContent = styled.div`
       align-self: flex-start; /* Aligns message to the left */
       /* Optional: Drop shadow for a floating effect */
       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-      .incoming-user {
-        display: flex;
-        align-items: center;
-        gap: 0.3rem;
-        .icon {
-          font-size: 13px;
-        }
-        span {
-          font-family: "poppins";
-          font-size: 11px;
-          font-weight: 600;
-          letter-spacing: 0.08rem;
-        }
-      }
       .incoming-message {
         //styleName: Caption/large/regular;
-        font-size: 12px;
+        font-size: 14px;
         font-weight: 500;
         line-height: 22px;
-        margin-top: 0.2rem;
         text-align: left;
         color: #ffff;
       }
       .incoming-message-time {
         display: flex;
-        margin-top: 0.5rem;
         justify-content: flex-end;
-        gap: 0.3rem;
+        gap: 0.2rem;
         align-items: center;
         font-size: 12px;
       }
     }
     .incoming-vector {
       position: absolute;
-      top: 72px;
+      top: 77px;
       left: 0;
     }
+
     .outgoing {
-      max-width: 70%;
+      max-width: 50%;
       height: auto;
       padding: 15px 20px;
       border-radius: 17px;
       background: #d4d4d4;
+
       color: black;
       font-size: 16px;
       line-height: 1.5;
       opacity: 1;
+      align-self: flex-end;
       float: right;
-      align-self: flex-end; /* Aligns message to the right */
       margin-right: 1rem;
       /* Optional: Drop shadow for a floating effect */
       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
       .outgoing-message {
         //styleName: Caption/large/regular;
-        font-size: 12px;
+        font-size: 14px;
         font-weight: 500;
         line-height: 22px;
-        text-align: right;
+        text-align: left;
         color: black;
       }
       .outgoing-message-time {
-        margin-top: 0.5rem;
         display: flex;
         justify-content: flex-end;
-        gap: 0.3rem;
+        gap: 0.2rem;
         align-items: center;
         font-size: 12px;
         .icon {
@@ -273,12 +233,7 @@ const MainContent = styled.div`
     }
     .outgoing-vector {
       position: absolute;
-      top: 65px;
-      right: 16px;
-    }
-    .outgoing-vector-image {
-      position: absolute;
-      bottom: -11px;
+      top: 56px;
       right: 16px;
     }
   }
@@ -297,18 +252,9 @@ const MainContent = styled.div`
         }
       }
     }
-    .chatting-box{
-      .incoming{
-        margin-bottom: 0.7rem;
-      }
-      .outgoing{
-        margin-bottom: 0.7rem;
-      }
-    }
+    border-left: none;
   }
-
 `;
-
 
 const GoBackMobileIcon = styled.div`
   display: none; /* Hide by default */
@@ -329,4 +275,5 @@ const GoBackMobileIcon = styled.div`
     }
   }
 `;
-export default GroupChatbox;
+
+export default Chatbox;

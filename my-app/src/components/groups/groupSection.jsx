@@ -1,193 +1,32 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-
 import { FiUsers } from "react-icons/fi";
-import GroupChatbox from "../chat/groupChatbox";
-
-const groupsData = [
-  {
-    id: "rwe4j3n2n32n232454dfkd",
-    groupName: "Designer",
-    contacts: [
-      {
-        id: 1,
-        name: "Alberte Robert",
-        message: "Let's catch up soon!",
-        status: "online",
-      },
-      {
-        id: 2,
-        name: "Lisa Williams",
-        message: "Are you free this weekend?",
-        status: "offline",
-      },
-      {
-        id: 3,
-        name: "Lisa Williams",
-        message: "Are you free this weekend?",
-        status: "offline",
-      },
-      {
-        id: 4,
-        name: "Lisa Williams",
-        message: "images",
-        status: "offline",
-        imageMessage: "/assets/Mask group.png",
-      },
-    ],
-  },
-  {
-    id: "sjwi32323n2n3j2n3232",
-    groupName: "General",
-    contacts: [
-      {
-        id: 3,
-        name: "John Smith",
-        message: "Meeting at 10 AM tomorrow.",
-      },
-      {
-        id: 4,
-        name: "Samantha Green",
-        message: "Project updates needed by EOD.",
-      },
-    ],
-  },
-  {
-    id: "we4p3343434l3mn4k3j4vg3",
-    groupName: "Reporting",
-    contacts: [
-      {
-        id: 3,
-        name: "John Smith",
-        message: "Meeting at 10 AM tomorrow.",
-      },
-      {
-        id: 4,
-        name: "Samantha Green",
-        message: "Project updates needed by EOD.",
-      },
-    ],
-  },
-  // Add more groups as needed
-];
+import GroupChatbox from "./groupChatbox";
+import GroupSidebar from "./groupSidebar";
+import { useGroup } from "../context/groupContext";
 
 const GroupSection = () => {
-  const [groups, setGroups] = useState([]);
-  const [activeGroup, setActiveGroup] = useState(0); // Initially, no group is active
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-
-  useEffect(() => {
-    if (!isMobile) {
-      setActiveGroup(0);
-    }
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
-    // Simulate fetching data
-    const fetchContacts = () => {
-      setGroups(groupsData);
-    };
-
-    fetchContacts();
-  }, []);
+  const {
+    groups,
+    activeGroup,
+    activeGroupMobile,
+    isMobile,
+  } = useGroup();
 
   return (
     <>
       <Container>
         {isMobile ? (
-          activeGroup !== null ? ( // Mobile view: show Chatbox if there's an active chat
-            groups.length > 0 && (
-              <GroupChatbox
-                groups={groups}
-                activeGroup={activeGroup}
-                setActiveGroup={setActiveGroup}
-                isMobile={isMobile}
-              />
-            )
-          ) : (
+          activeGroupMobile === null ? ( // Mobile view: show Chatbox if there's an active chat
             // Mobile view: show group sidebar if no active chat
-            <div className="group-sidebar">
-              <div
-                className="mobileResponsive"
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <div className="maintitle">GROUPS</div>
-                <FiUsers
-                  className="icon"
-                  style={{ fontSize: "20px", color: "#64d895" }}
-                />
-              </div>{" "}
-              {/* Search Bar */}
-              <div className="searchbar">
-                <input type="text" placeholder="search groups" />
-              </div>
-              {/* Chat List */}
-              <div className="groups-list">
-                {/* Your group items will go here */}
-                {groups.map((group, groupIndex) => (
-                  <div
-                    key={groupIndex}
-                    onClick={() => setActiveGroup(groupIndex)}
-                    className={`group-section ${
-                      activeGroup === groupIndex ? "active" : ""
-                    }`}
-                  >
-                    <h2 className="group-name">{group.groupName}</h2>
-                    {/* Add more group items as needed */}
-                  </div>
-                ))}
-              </div>
-            </div>
+            <GroupSidebar />
+          ) : (
+            groups.length > 0 && <GroupChatbox />
           )
         ) : (
           // Desktop view: show both message sidebar and Chatbox
           <>
-            <div className="group-sidebar">
-              <div
-                className="mobileResponsive"
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <div className="maintitle">GROUPS</div>
-                <FiUsers
-                  className="icon"
-                  style={{ fontSize: "20px", color: "#64d895" }}
-                />
-              </div>{" "}
-              {/* Search Bar */}
-              <div className="searchbar">
-                <input type="text" placeholder="search groups" />
-              </div>
-              {/* Chat List */}
-              <div className="groups-list">
-                {/* Your group items will go here */}
-                {groups.map((group, groupIndex) => (
-                  <div
-                    key={groupIndex}
-                    onClick={() => setActiveGroup(groupIndex)}
-                    className={`group-section ${
-                      activeGroup === groupIndex ? "active" : ""
-                    }`}
-                  >
-                    <h2 className="group-name">{group.groupName}</h2>
-                    {/* Add more group items as needed */}
-                  </div>
-                ))}
-              </div>
-            </div>
+            <GroupSidebar />
             {groups.length > 0 ? (
               <GroupChatbox groups={groups} activeGroup={activeGroup} />
             ) : (
@@ -205,93 +44,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: row;
-  .group-sidebar {
-    flex: 1; /* Take up one part of the container */
-    background: var(--message-sidebar);
-    padding: 20px; /* Add some padding */
-    display: flex;
-    max-width: 21vw;
-    height: 100vh;
-    flex-direction: column; /* Arrange items vertically */
-    .maintitle {
-      font-family: "Terminator";
-      font-size: 16px;
-      font-weight: 500;
-      letter-spacing: 0.09rem;
-      line-height: 36px;
-      text-align: left;
-      color: var(--button-green-color);
-    }
-    .groups-list {
-      flex: 1; /* Take up remaining space */
-      overflow-y: auto; /* Allow scrolling if content overflows */
-      margin-bottom: 20px; /* Space below group list */
-      padding: 8px; /* Padding inside the group list */
-      .group-section {
-        padding: 10px;
-        border-radius: 7px;
-        cursor: pointer;
-        &.active {
-          background-color: var(
-            --group-section-active
-          ); /* Change background color for active group */
-          border-left: 5px solid #64d895; /* Add a left border for the active group */
-        }
-        &:hover {
-          background: #64d895;
-          color: black;
-        }
-        .group-name {
-          font-size: 15px;
-          font-weight: 700;
-        }
-      }
-    }
-  }
-  .searchbar {
-    input {
-      width: 100%;
-      padding: 10px 12px;
-      gap: 8px;
-      margin: 10px 0;
-      border-radius: 7px;
-      opacity: 0px;
-      outline: none;
-      border: none;
-      background: #ffffff3d;
-    }
-    ::placeholder {
-      font-size: 11px;
-      letter-spacing: 0.09rem;
-      font-weight: 400;
-      line-height: 24px;
-      text-align: left;
-    }
-  }
 
-  @media (max-width: 600px) {
-    .group-sidebar {
-      max-width: 100vw;
-      padding: 0px 10px 10px 10px;
-      .mobileResponsive {
-        .icon {
-          display: none;
-        }
-      }
-      .maintitle {
-        display: none;
-      }
-      .groups-list {
-        padding: 2px;
-      }
-      .searchbar {
-        padding-top: 0px;
-        input {
-          margin-top: 0px;
-        }
-      }
-    }
-  }
 `;
 
 export default GroupSection;

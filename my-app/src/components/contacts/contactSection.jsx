@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Chatbox from "../chat/chatbox";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import { RiFolderOpenLine } from "react-icons/ri";
-import { CgUserList } from "react-icons/cg";
+import { useChat } from "../context/chatContext";
+import Chatbox from "../messages/chatbox";
+import GoBackMobileIcon from "../responsive/goBackMobileIcon";
 
 const contactsData = [
   {
@@ -20,6 +21,7 @@ const contactsData = [
 ];
 
 const ContactSection = () => {
+  const { chats, activeChat, isMobile } = useChat();
   const [contacts, setContacts] = useState([]);
 
   useEffect(() => {
@@ -36,19 +38,10 @@ const ContactSection = () => {
       <Container>
         <div className="contact-sidebar">
           {/* Logo */}
-          <div
-            className="mobileResponsive"
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
+          <div className="topHeader">
+            {isMobile && <GoBackMobileIcon />}
             <div className="maintitle">CONTACTS</div>
-            <CgUserList
-              className="icon"
-              style={{ fontSize: "20px", color: "#64d895" }}
-            />
+            <FaEllipsisVertical className="icon" />
           </div>
           {/* Search Bar */}
           <div className="searchbar">
@@ -82,9 +75,7 @@ const ContactSection = () => {
           </div>
         </div>
 
-        <div className="chatbox">
-          <Chatbox />
-        </div>
+        {!isMobile && <Chatbox chats={chats} activeChat={activeChat} />}
       </Container>
     </>
   );
@@ -111,6 +102,11 @@ const Container = styled.div`
       line-height: 36px;
       text-align: left;
       color: var(--button-green-color);
+    }
+    .topHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
     .contacts-list {
       flex: 1; /* Take up remaining space */
@@ -186,31 +182,28 @@ const Container = styled.div`
   }
 
   @media (max-width: 600px) {
-
-
     .contact-sidebar {
       max-width: 100vw;
       padding: 0px 10px 10px 10px;
-      .mobileResponsive {
-        .icon {
-          display: none;
-        }
-      }
-      .maintitle {
-        display: none;
-      }
+      background: linear-gradient(
+        to right bottom,
+        var(--gradient-home2) 31%,
+        var(--gradient-home1),
+        var(--gradient-home3)
+      );
+      .topHeader{
+        margin-top: 0.3rem;
+       }
       .contacts-list {
         padding: 2px;
       }
       .searchbar {
         padding-top: 0px;
         input {
+          background: var(--message-sidebar);
           margin-top: 0px;
         }
       }
-    }
-    .chatbox{
-      display: none;
     }
   }
 `;

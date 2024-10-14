@@ -46,6 +46,7 @@ body {
   --home-main-color: #49dd69;
   --home-blue-color: #6099e8;
   --home-list: #384f4f;
+  --top-menu-mobile:#ffffff;
 }
 
 body.dark-mode {
@@ -63,6 +64,8 @@ body.dark-mode {
   --icon-div: black;
   --border-color: #333333;
   --nav-item-color: #a6fdb9;
+  --top-menu-mobile:black;
+
 }
 
 body {
