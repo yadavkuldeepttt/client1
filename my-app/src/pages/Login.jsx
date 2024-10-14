@@ -353,8 +353,14 @@ const FormContainer = styled.div`
     max-width: 60vw;
     width: 100%;
     padding: 12px;
-      .icon-div {
-        left: 1.2px;
+    .icon-div {
+      left: 1.2px;
+      background: var(--icon-div);
+      width: 40px;
+      height: 57.6px;
+      left: 0.8px;
+      top: 50%;
+      border-radius: 7px 0px 0px 6.5px;
     }
   }
 `;

@@ -82,7 +82,8 @@ const ChatBottom = styled.div`
     width: 100vw;
     .message-bar{
       textarea{
-        margin: 0px;
+        margin-bottom: 0px;
+        margin-top: 0.3rem;
       }
     }
   }
