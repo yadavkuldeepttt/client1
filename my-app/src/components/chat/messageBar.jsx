@@ -27,6 +27,7 @@ const MessageBar = () => {
 
 const ChatBottom = styled.div`
   background: var(--message-sidebar);
+
   display: flex;
   align-items: center;
   gap: 2rem;
@@ -74,6 +75,11 @@ const ChatBottom = styled.div`
         color: #ffff;
       }
     }
+  }
+  @media (max-width:768px){
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
   }
 `;
 

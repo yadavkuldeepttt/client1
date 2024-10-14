@@ -310,9 +310,9 @@ const FormContainer = styled.div`
   .icon-div {
     background: var(--icon-div);
     width: 40px;
-    height: 56px;
+    height: 56.5px;
     position: absolute;
-    left: 0.6px;
+    left: 1.3px;
     top: 50%;
     display: flex;
     justify-content: center;
